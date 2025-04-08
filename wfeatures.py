@@ -1,0 +1,1 @@
+wfeatures = ['mean_temp','mean_relative_hum','acc_precip','bright_sunshine'] 
