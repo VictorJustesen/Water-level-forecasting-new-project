@@ -26,7 +26,7 @@ df_temp['time'] = pd.to_datetime(df_temp['time'], format='%d-%m-%Y %H:%M')
 df_temp.set_index('time', inplace=True)
 df_temp = df_temp.resample('D').mean()  
 
-df = df.join(df_temp, how='outer')
+#df = df.join(df_temp, how='outer')
 
 
 #import weather data
@@ -55,7 +55,7 @@ for filename in os.listdir(directory_path):
         else:
             all_data = all_data.join(dfw, how='outer')
 
-df = df.join(all_data, how='outer')
+#df = df.join(all_data, how='outer')
 df = df.dropna()
     
 #df['hour'] = df.index.hour
@@ -69,7 +69,7 @@ df['weekofyear'] = df.index.isocalendar().week
   
 try:
 
-    df.to_csv("masterdata.csv")
+    df.to_csv("masterdata2.csv")
     print("sucess" )
     print(df.columns)
 

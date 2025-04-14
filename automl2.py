@@ -18,10 +18,14 @@ import rf_model
 import xgb_model
 import rnnlstm_model
 import datetime
+#settings could be done as arguments
+mode=recursive #single day, range recursive?
+n_splits=10
+prediction_length=7   
 
 print(datetime.datetime.now())
 try:
-    df = pd.read_csv("masterdata.csv", index_col='time', parse_dates=True)
+    df = pd.read_csv("masterdata2.csv", index_col='time', parse_dates=True)
     print("sucess")
     print(df.head())
 except Exception as e:
@@ -63,8 +67,7 @@ def error_metric(y_true, y_pred):
         else:
             return None 
         
-n_splits=10
-prediction_length=7        
+     
 
 print("error metric: ", metric)
 
@@ -75,20 +78,17 @@ def add_lags(df):
     #for hours in [1, 4, 8, 16, 24]:
     #    df[f'lag_{hours}h'] = (df.index - pd.Timedelta(hours, unit='h')).map(target_map)
 
-    lag_7d = (df.index - pd.Timedelta(days=prediction_length)).map(target_map)
-    df['lag_7d_avg'] = pd.DataFrame([lag_7d]).mean(axis=0).values
+    lag_mean_prediction_length = df['level'].rolling(window=prediction_length).mean()
+    df[f'mean_{prediction_length}_lag'] = lag_mean_prediction_length.shift(prediction_length)
 
-    lag_30d = (df.index - pd.Timedelta(days=30)).map(target_map)
-    df['lag_30d_avg'] = pd.DataFrame([lag_30d]).mean(axis=0).values
-
-
+    #right now it is only prediciton length that adds as lag, but you could add more. ex if prediction length is 7 that 7 is the added lag, you could do so 7,8,9 is added or 7..9 
     for days in range(prediction_length,prediction_length+1):
         df[f'lag_{days}d'] = (df.index - pd.Timedelta(days, unit='d')).map(target_map)
-    df=df.bfill()
 
-    for days in range(365,366):
+    for days in range(365,366): #same but with year
         df[f'lag_{days}d'] = (df.index - pd.Timedelta(days, unit='d')).map(target_map)
-    df=df.bfill()
+
+    df = df.dropna()
 
 
     return df

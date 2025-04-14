@@ -1,0 +1,231 @@
+==========================================================
+Job Started on n-62-20-3
+Job ID: 24636753
+Working Directory: /zhome/44/a/187127/school/Water-level-forecasting-new-project
+Requested Cores: 8
+Allocated Hosts: n-62-20-3 n-62-20-3 n-62-20-3 n-62-20-3 n-62-20-3 n-62-20-3 n-62-20-3 n-62-20-3
+Queue: gpuv100
+Start Time: Thu Apr 10 22:33:08 CEST 2025
+==========================================================
+Loading required modules...
+Modules loaded:
+Activating Conda environment 'forecasting'...
+Conda environment: forecastinghpc
+Python path: /zhome/44/a/187127/anaconda3/envs/forecastinghpc/bin/python
+Working directory set to: /zhome/44/a/187127/school/Water-level-forecasting-new-project
+Running automl.py...
+2025-04-10 22:33:38.991535
+sucess
+                level       temp  bright_sunshine  ...  year  dayofyear  weekofyear
+time                                               ...                             
+2014-08-20  11.397573  14.012500              9.5  ...  2014        232          34
+2014-08-21  11.390281  13.754167              6.1  ...  2014        233          34
+2014-08-22  11.387896  13.637500              8.1  ...  2014        234          34
+2014-08-23  11.395344  13.666667              3.2  ...  2014        235          34
+2014-08-24  11.395281  13.412500              6.7  ...  2014        236          34
+
+[5 rows x 10 columns]
+running models:  ['linear_model', 'fnn_model', 'rnn_model', 'cnn_model', 'rnnlstm_model', 'baseline_model']
+error metric:  mse
+Index(['level', 'temp', 'bright_sunshine', 'mean_relative_hum', 'acc_precip',
+       'mean_temp', 'month', 'year', 'dayofyear', 'weekofyear', 'lag_7d_avg',
+       'lag_30d_avg', 'lag_7d', 'lag_365d'],
+      dtype='object')
+feature selection
+
+Performing feature selection for linear_model
+Tested feature 'temp': Mean mse = 0.03332952307887959
+Tested feature 'bright_sunshine': Mean mse = 0.02044972936192682
+Tested feature 'mean_relative_hum': Mean mse = 0.021711382978772533
+Tested feature 'acc_precip': Mean mse = 0.009717047880001892
+Tested feature 'mean_temp': Mean mse = 0.029291583506395977
+Tested feature 'month': Mean mse = 0.005622054952460894
+Tested feature 'year': Mean mse = 0.002986004546154678
+Tested feature 'dayofyear': Mean mse = 0.0055306328610240174
+Tested feature 'weekofyear': Mean mse = 0.005955518000166912
+Tested feature 'lag_7d_avg': Mean mse = 0.0006133129199710209
+Tested feature 'lag_30d_avg': Mean mse = 0.002916469353392691
+Tested feature 'lag_7d': Mean mse = 0.0006133129199710209
+Tested feature 'lag_365d': Mean mse = 0.013808237711727428
+Selected feature 'lag_7d_avg' with improvement to mse = 0.0006133129199710209
+Tested feature 'temp': Mean mse = 0.0037171987240837644
+Tested feature 'bright_sunshine': Mean mse = 0.002112492497078401
+Tested feature 'mean_relative_hum': Mean mse = 0.00242677093128887
+Tested feature 'acc_precip': Mean mse = 0.0003445675674688708
+Tested feature 'mean_temp': Mean mse = 0.002581209439646007
+Tested feature 'month': Mean mse = 0.0005606914193293865
+Tested feature 'year': Mean mse = 0.0002795242380673331
+Tested feature 'dayofyear': Mean mse = 0.0005665379403044108
+Tested feature 'weekofyear': Mean mse = 0.0006175399913333317
+Tested feature 'lag_30d_avg': Mean mse = 0.00038532883646301506
+Tested feature 'lag_7d': Mean mse = 0.0006133129199710209
+Tested feature 'lag_365d': Mean mse = 0.0008633124950824293
+Selected feature 'year' with improvement to mse = 0.0002795242380673331
+Tested feature 'temp': Mean mse = 0.0022839787479954914
+Tested feature 'bright_sunshine': Mean mse = 0.001122264320817575
+Tested feature 'mean_relative_hum': Mean mse = 0.001435783199666909
+Tested feature 'acc_precip': Mean mse = 0.000344298061382206
+Tested feature 'mean_temp': Mean mse = 0.001454013789389459
+Tested feature 'month': Mean mse = 0.0002646263288657637
+Tested feature 'dayofyear': Mean mse = 0.00026716323761276264
+Tested feature 'weekofyear': Mean mse = 0.0002664015111737028
+Tested feature 'lag_30d_avg': Mean mse = 0.00023323409822519786
+Tested feature 'lag_7d': Mean mse = 0.0002795242380672953
+Tested feature 'lag_365d': Mean mse = 0.00039897251775760273
+Selected feature 'lag_30d_avg' with improvement to mse = 0.00023323409822519786
+Tested feature 'temp': Mean mse = 0.0017084184535521832
+Tested feature 'bright_sunshine': Mean mse = 0.0008808124158542823
+Tested feature 'mean_relative_hum': Mean mse = 0.0012277173963838302
+Tested feature 'acc_precip': Mean mse = 0.00039452966546939754
+Tested feature 'mean_temp': Mean mse = 0.0009980457459537496
+Tested feature 'month': Mean mse = 0.00023706465962925982
+Tested feature 'dayofyear': Mean mse = 0.00023719058330858652
+Tested feature 'weekofyear': Mean mse = 0.00024257036017813973
+Tested feature 'lag_7d': Mean mse = 0.0002332340982252228
+Tested feature 'lag_365d': Mean mse = 0.0003044617456910837
+No further improvement, stopping feature selection.
+Selected features for 'linear_model': ['lag_7d_avg', 'year', 'lag_30d_avg']
+
+Performing feature selection for fnn_model
+Tested feature 'temp': Mean mse = 0.022083020136289058
+Tested feature 'bright_sunshine': Mean mse = 0.025467313786149637
+Tested feature 'mean_relative_hum': Mean mse = 0.035420488948988076
+Tested feature 'acc_precip': Mean mse = 0.011187183793692532
+Tested feature 'mean_temp': Mean mse = 0.028930762097308955
+Tested feature 'month': Mean mse = 0.032818100117757286
+Tested feature 'year': Mean mse = 0.5950560405960529
+Tested feature 'dayofyear': Mean mse = 1.3194037166906531
+Tested feature 'weekofyear': Mean mse = 0.11285746707166931
+Tested feature 'lag_7d_avg': Mean mse = 0.0006947461871665661
+Tested feature 'lag_30d_avg': Mean mse = 6.0116281932187325e-05
+Tested feature 'lag_7d': Mean mse = 0.0007298500700882279
+Tested feature 'lag_365d': Mean mse = 0.02437470791759234
+Selected feature 'lag_30d_avg' with improvement to mse = 6.0116281932187325e-05
+Tested feature 'temp': Mean mse = 0.00167731256394916
+Tested feature 'bright_sunshine': Mean mse = 0.0014892543617747104
+Tested feature 'mean_relative_hum': Mean mse = 0.019743893894626
+Tested feature 'acc_precip': Mean mse = 0.0015301768829082297
+Tested feature 'mean_temp': Mean mse = 0.0018168905765790354
+Tested feature 'month': Mean mse = 0.0029708653010863694
+Tested feature 'year': Mean mse = 2.0831690679699064
+Tested feature 'dayofyear': Mean mse = 0.5086731660432112
+Tested feature 'weekofyear': Mean mse = 0.002161241691414417
+Tested feature 'lag_7d_avg': Mean mse = 0.0012023155171227691
+Tested feature 'lag_7d': Mean mse = 0.0002350583293441941
+Tested feature 'lag_365d': Mean mse = 0.00609039739559402
+No further improvement, stopping feature selection.
+Selected features for 'fnn_model': ['lag_30d_avg']
+
+Performing feature selection for rnn_model
+Tested feature 'temp': Mean mse = 0.03243115290579713
+Tested feature 'bright_sunshine': Mean mse = 0.05613277518084433
+Tested feature 'mean_relative_hum': Mean mse = 0.360727853793378
+Tested feature 'acc_precip': Mean mse = 0.012338140866130776
+Tested feature 'mean_temp': Mean mse = 0.03464228821995644
+Tested feature 'month': Mean mse = 0.02146143347240866
+Tested feature 'year': Mean mse = 0.05546661001680594
+Tested feature 'dayofyear': Mean mse = 0.1842071416958304
+Tested feature 'weekofyear': Mean mse = 0.0015365662591554138
+Tested feature 'lag_7d_avg': Mean mse = 0.0006547960380392334
+Tested feature 'lag_30d_avg': Mean mse = 7.20120183579957e-06
+Tested feature 'lag_7d': Mean mse = 0.0004921805058357984
+Tested feature 'lag_365d': Mean mse = 0.020402978444071844
+Selected feature 'lag_30d_avg' with improvement to mse = 7.20120183579957e-06
+Tested feature 'temp': Mean mse = 0.003083688302346057
+Tested feature 'bright_sunshine': Mean mse = 0.0011179370217120875
+Tested feature 'mean_relative_hum': Mean mse = 0.005356437744543971
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24636753: <AutoML_WaterLevel> in cluster <dcc> Exited
+
+Job <AutoML_WaterLevel> was submitted from host <hpclogin1> by user <s224296> in cluster <dcc> at Thu Apr 10 21:49:31 2025
+Job was executed on host(s) <8*n-62-20-3>, in queue <gpuv100>, as user <s224296> in cluster <dcc> at Thu Apr 10 22:33:02 2025
+</zhome/44/a/187127> was used as the home directory.
+</zhome/44/a/187127/school/Water-level-forecasting-new-project> was used as the working directory.
+Started at Thu Apr 10 22:33:02 2025
+Terminated at Thu Apr 10 22:46:44 2025
+Results reported at Thu Apr 10 22:46:44 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+# LSF Batch Job Script for running automl.py
+
+### General LSF options ###
+
+# -- Specify the queue --
+# Use a GPU queue appropriate for your models (e.g., gpuv100 or gpua100)
+# Remember A100 requires code compiled with CUDA >= 11.0
+#BSUB -q gpuv100
+
+# -- Set the job Name --
+#BSUB -J AutoML_WaterLevel
+
+# -- Ask for number of cores (CPU slots) --
+# Adjust based on data loading/preprocessing needs. 8 is a reasonable start.
+#BSUB -n 8
+
+# -- Request GPU resources --
+# Request 1 GPU in exclusive process mode.
+#BSUB -gpu "num=1:mode=exclusive_process"
+
+# -- Specify that all cores/GPU must be on the same host/node --
+#BSUB -R "span[hosts=1]"
+
+# -- Specify memory requested PER CORE/SLOT --
+# Example: 8GB RAM per core (total 64GB). ADJUST BASED ON YOUR NEEDS!
+#BSUB -R "rusage[mem=8GB]"
+
+# -- Specify memory limit PER CORE/SLOT (Job killed if exceeded) --
+# Example: 10GB per core (total 80GB limit). ADJUST BASED ON YOUR NEEDS!
+#BSUB -M 9GB
+
+# -- Set walltime limit: hh:mm --
+# Max 24:00 for GPU queues. START SHORT (e.g., 1:00) FOR TESTING!
+# Adjust based on expected runtime for the full job.
+#BSUB -W 00:10
+
+# -- Specify output and error files (%J expands to Job ID) --
+# We'll create the 'logs' directory below.
+#BSUB -o logs/automl_%J.out
+#BSUB -e logs/automl_%J.err
+
+# -- Email notifications (Optional) --
+# Uncomment and set your DTU email if desired
+##BSUB -u s224296@dtu.dk  # Use your actual email
+# Send email on job start (-B) and job end/failure (-N)
+##BSUB -B
+##BSUB -N
+
+### End of LSF options ###
+
+(... more ...)
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   1076.00 sec.
+    Max Memory :                                 1340 MB
+    Average Memory :                             1131.50 MB
+    Total Requested Memory :                     65536.00 MB
+    Delta Memory :                               64196.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                50
+    Run time :                                   822 sec.
+    Turnaround time :                            3433 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <logs/automl_24636753.err> for stderr output of this job.
+

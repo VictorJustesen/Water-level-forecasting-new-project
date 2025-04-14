@@ -1,0 +1,35 @@
+name: forecastinghpc  # Keep the same environment name
+channels:
+  - conda-forge   # IMPORTANT: Use conda-forge first
+  - defaults
+dependencies:
+  # --- Core Requirements ---
+  - python=3.9        # Or specify the version you need
+  - pip             # Include pip itself
+  - pandas          # For data handling
+  - numpy           # For numerical operations
+  - scikit-learn    # For metrics, maybe preprocessing?
+  - matplotlib      # For plotting (if automl.py saves plots)
+  - seaborn         # For plotting (if automl.py saves plots)
+
+  # --- ML Models ---
+  - tensorflow      # Standard TensorFlow (conda will get dependencies)
+  - xgboost         # XGBoost model
+  # Add 'keras' here if your fnn/rnn/cnn models import it directly and it's not just tf.keras
+  # - keras
+
+  # --- Other potentially needed packages ---
+  # Add ONLY if your automl.py script directly imports them
+  # - jupyterlab  # If running notebooks within the env later
+  # - ipykernel   # If using notebooks
+  # - openpyxl    # If reading/writing excel files
+
+  # --- Leave out low-level libs and macOS specifics ---
+  # DO NOT add appnope, libgfortran, libcxx, etc.
+  # DO NOT add build strings (=h... or =py...)
+  # DO NOT add tensorflow-macos
+
+  # --- Pip dependencies (ONLY if package is not on conda/conda-forge) ---
+  # Only add things here if they truly cannot be installed via conda
+  # - pip:
+  #   - some-pip-only-package
