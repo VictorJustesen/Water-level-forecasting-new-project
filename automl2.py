@@ -95,36 +95,36 @@ def add_lags(df):
 
 df = add_lags(df)
 
-def split(n_splits=n_splits ,
-          k=prediction_length,       
-          gap=14,
-          df=df):
+def split():
 
-    total_length = len(df)
-    
+     total_length = len(df)
+
     for i in range(n_splits):
-        # Identify test day
-        test_day = total_length - i * gap - 1  # one day at the end, then move backward by interval each split
+        # Identify end day index for the test range
+        last_test_day = total_length - i * prediction_length*2 - 1 # Keeps original spacing logic
+        # Identify end day index for the validation range
+        last_val_day = last_test_day - prediction_length - 1# Val ends prediction_length before test ends
         
-        # Validation day is k days before the test day
-        val_day = test_day - k
-        
-        # Check validity of indices
-        if val_day < 0 or test_day >= total_length:
-            break
-        
-        # Training set: from the start up to k day before validation
-        train_idx = np.arange(0, val_day -k-1 )
-        
-        # Validation set: single day
-        val_idx = np.array([val_day])
-        
-        # Test set: single day
-        test_idx = np.array([test_day])
+        # Training stops prediction_length days before validation starts
+        train_end_day = last_val_day - prediction_length
 
-        
+        # Check validity of calculated start indices
+        if train_end_day < 0 
+            break
+
+        # Training set indices
+        train_idx = np.arange(0, train_end_day)
+
+        # Validation set indices (range)
+        val_idx = np.arange(train_end_day +1, last_val_day)
+
+        # Test set indices (range)
+        test_idx = np.arange( last_val_day +1, last_test_day )
+
         yield train_idx, val_idx, test_idx
 
+
+print(split())
 # # Define test size and validation size
 # display_splits = min(5, n_splits)  # Number of splits to display
 
