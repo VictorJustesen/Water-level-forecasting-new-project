@@ -19,9 +19,10 @@ import xgb_model
 import rnnlstm_model
 import datetime
 #settings could be done as arguments
-mode=recursive #single day, range recursive?
-n_splits=10
-prediction_length=7   
+mode=multiple #single day, range recursive?
+n_splits=10 #number of splits 
+prediction_length=7# how long ahead in the future we predict 
+gap=14 #gap between splits
 
 print(datetime.datetime.now())
 try:
@@ -94,37 +95,45 @@ def add_lags(df):
     return df
 
 df = add_lags(df)
+print(df.head())
 
 def split():
 
-     total_length = len(df)
+    total_length = len(df)
 
     for i in range(n_splits):
         # Identify end day index for the test range
-        last_test_day = total_length - i * prediction_length*2 - 1 # Keeps original spacing logic
+        last_test_day = total_length - (i * prediction_length*2) - ((gap)*i)
         # Identify end day index for the validation range
-        last_val_day = last_test_day - prediction_length - 1# Val ends prediction_length before test ends
+        last_val_day = last_test_day - prediction_length # Val ends prediction_length before test ends
         
         # Training stops prediction_length days before validation starts
         train_end_day = last_val_day - prediction_length
 
         # Check validity of calculated start indices
-        if train_end_day < 0 
+        if train_end_day < 0:
             break
+        
+        train_idx = np.arange(0, train_end_day+1)
+        
+        if(mode=="multiple"):
 
-        # Training set indices
-        train_idx = np.arange(0, train_end_day)
+            # Validation set indices (range)
+            val_idx = np.arange(train_end_day +1, last_val_day+1)
 
+            # Test set indices (range)
+            test_idx = np.arange( last_val_day +1, last_test_day+1 )
+        
+        elif(mode=="single"):
         # Validation set indices (range)
-        val_idx = np.arange(train_end_day +1, last_val_day)
+            val_idx = np.array([last_val_day])
 
-        # Test set indices (range)
-        test_idx = np.arange( last_val_day +1, last_test_day )
+            # Test set indices (range)
+            test_idx = np.array([last_test_day ])
 
         yield train_idx, val_idx, test_idx
 
 
-print(split())
 # # Define test size and validation size
 # display_splits = min(5, n_splits)  # Number of splits to display
 
@@ -154,7 +163,6 @@ print(split())
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="statsmodels")
 warnings.filterwarnings("ignore", category=FutureWarning, module="statsmodels")
-print(df.columns)
 
 
 
