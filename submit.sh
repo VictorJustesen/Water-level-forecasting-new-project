@@ -33,7 +33,7 @@
 # -- Set walltime limit: hh:mm --
 # Max 24:00 for GPU queues. START SHORT (e.g., 1:00) FOR TESTING!
 # Adjust based on expected runtime for the full job.
-#BSUB -W 04:00
+#BSUB -W 10:00
 
 # -- Specify output and error files (%J expands to Job ID) --
 # We'll create the 'logs' directory below.
@@ -103,7 +103,7 @@ echo "Running automl.py..."
 # Assuming automl.py takes arguments for input and output files.
 # Using masterdata.csv as input, adjust if needed (e.g., processed_data.parquet).
 # Saving results to a unique file in the 'results' directory.
-python -u automl.py \
+python -u automl2.py \
     
 
 # Capture the exit status of the python script

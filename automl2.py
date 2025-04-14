@@ -21,8 +21,8 @@ import datetime
 #settings could be done as arguments
 mode="multiple" #single day, range recursive?
 n_splits=3 #number of splits 
-prediction_length=30# how long ahead in the future we predict 
-gap=45 #gap between splits
+prediction_length=10# how long ahead in the future we predict 
+gap=15 #gap between splits
 
 print(datetime.datetime.now())
 try:
@@ -38,10 +38,10 @@ models = [
     'linear_model',
     'rf_model',
     'xgb_model',
-    #'fnn_model',
-    #'rnn_model',
-    #'cnn_model',
-    #'rnnlstm_model',
+    'fnn_model',
+    'rnn_model',
+    'cnn_model',
+    'rnnlstm_model',
     'baseline_model',
 ]
 
@@ -363,9 +363,9 @@ for model_name in models:
         #predecting
         if model_name == "baseline_model":
             if mode == "multiple":
-                y_pred = test_df['lag_7d'].values
+                y_pred = test_df[f'lag_{prediction_length}d'].values
             elif mode == "single":
-                y_pred = test_df['lag_7d'].values[-1:] if len(test_df) > 1 else test_df['lag_7d'].values
+                y_pred = test_df[f'lag_{prediction_length}d'].values[-1:] 
         else:
             # Combine training and validation data for final training
             X_full_train = pd.concat([train_df[selected_features], val_df[selected_features]])
@@ -389,7 +389,7 @@ for model_name in models:
             if isinstance(X_test, pd.Series):
                 X_test = X_test.to_frame()
             
-            full_pred = model_func(X_full_train, y_full_train, X_test, best_params)
+            y_pred = model_func(X_full_train, y_full_train, X_test, best_params)
             
             if mode == "multiple":
                 X_test = test_df[selected_features]
