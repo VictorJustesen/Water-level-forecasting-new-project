@@ -9,12 +9,10 @@ from sklearn.model_selection import ParameterGrid
 
 import seaborn as sns
 
-import linear_model
-import fnn_model
+import fnn_model 
 import rnn_model
 import cnn_model
 import baseline_model
-import rf_model
 import xgb_model
 import rnnlstm_model
 import datetime
@@ -37,12 +35,12 @@ except Exception as e:
 models = [
     'linear_model',
     'rf_model',
-    'xgb_model',
-    'fnn_model',
-    'rnn_model',
-    'cnn_model',
-    'rnnlstm_model',
-    'baseline_model',
+    #'xgb_model',
+    #'fnn_model',
+    #'rnn_model',
+    #'cnn_model',
+    #'rnnlstm_model',
+    #'baseline_model',
 ]
 
 imported_models = {}
@@ -50,7 +48,9 @@ model_params_groups = {}
 model_types = {}
 # get attributes in maps
 for model_name in models:
-    module = globals()[model_name] 
+
+    module_path = f"models.{model_name}"
+    module = importlib.import_module(module_path) 
     imported_models[model_name] = getattr(module, model_name)
     model_params_groups[model_name] = getattr(module, 'param_groups')
     model_types[model_name] = getattr(module, 'model_type')

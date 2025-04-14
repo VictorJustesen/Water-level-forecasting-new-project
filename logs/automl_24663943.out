@@ -1,0 +1,157 @@
+==========================================================
+Job Started on n-62-20-6
+Job ID: 24663943
+Working Directory: /zhome/44/a/187127/school/Water-level-forecasting-new-project
+Requested Cores: 4
+Allocated Hosts: n-62-20-6 n-62-20-6 n-62-20-6 n-62-20-6
+Queue: gpuv100
+Start Time: Mon Apr 14 22:21:48 CEST 2025
+==========================================================
+Loading required modules...
+Modules loaded:
+Activating Conda environment 'forecasting'...
+Conda environment: forecastinghpc
+Python path: /zhome/44/a/187127/anaconda3/envs/forecastinghpc/bin/python
+Working directory set to: /zhome/44/a/187127/school/Water-level-forecasting-new-project
+Running automl.py...
+2025-04-14 22:22:04.374188
+sucess
+                level  month  year  dayofyear  weekofyear
+time                                                     
+2014-06-20  11.437010      6  2014        171          25
+2014-06-21  11.439094      6  2014        172          25
+2014-06-22  11.435438      6  2014        173          25
+2014-06-23  11.428292      6  2014        174          26
+2014-06-24  11.427969      6  2014        175          26
+running models:  ['linear_model', 'rf_model', 'xgb_model', 'fnn_model', 'rnn_model', 'cnn_model', 'rnnlstm_model', 'baseline_model']
+error metric:  mse
+                level  month  year  ...  mean_10_lag    lag_10d   lag_365d
+time                                ...                                   
+2015-06-20  11.448463      6  2015  ...    11.578021  11.555328  11.437010
+2015-06-21  11.433109      6  2015  ...    11.575390  11.556492  11.439094
+2015-06-22  11.435677      6  2015  ...    11.573720  11.568219  11.435438
+2015-06-23  11.443779      6  2015  ...    11.568387  11.547730  11.428292
+2015-06-24  11.430875      6  2015  ...    11.563143  11.544766  11.427969
+
+[5 rows x 8 columns]
+feature selection
+
+Performing feature selection for linear_model
+2025-04-14 22:22:04.449032
+Tested feature 'month': Mean mse = 0.10083419761165568
+Tested feature 'year': Mean mse = 0.13838220285430664
+Tested feature 'dayofyear': Mean mse = 0.10197126105507254
+Tested feature 'weekofyear': Mean mse = 0.1032023992929361
+Tested feature 'mean_10_lag': Mean mse = 0.011355477834284552
+Tested feature 'lag_10d': Mean mse = 0.01898741238247517
+Tested feature 'lag_365d': Mean mse = 0.10699789969622649
+Selected feature 'mean_10_lag' with improvement to mse = 0.011355477834284552
+Tested feature 'month': Mean mse = 0.011333891339037694
+Tested feature 'year': Mean mse = 0.011640548645519007
+Tested feature 'dayofyear': Mean mse = 0.011332129570140152
+Tested feature 'weekofyear': Mean mse = 0.011367719505651934
+Tested feature 'lag_10d': Mean mse = 0.014609691332201672
+Tested feature 'lag_365d': Mean mse = 0.012066785841088307
+Selected feature 'dayofyear' with improvement to mse = 0.011332129570140152
+Tested feature 'month': Mean mse = 0.011379116722836174
+Tested feature 'year': Mean mse = 0.011646511845080797
+Tested feature 'weekofyear': Mean mse = 0.011347038982210227
+Tested feature 'lag_10d': Mean mse = 0.014585961376260302
+Tested feature 'lag_365d': Mean mse = 0.01208564779112816
+No further improvement, stopping feature selection.
+Selected features for 'linear_model': ['mean_10_lag', 'dayofyear']
+
+Performing feature selection for rf_model
+2025-04-14 22:22:04.670182
+Tested feature 'month': Mean mse = 0.07366312458439891
+Tested feature 'year': Mean mse = 0.018107485718781968
+Tested feature 'dayofyear': Mean mse = 0.08243023177796303
+Tested feature 'weekofyear': Mean mse = 0.08301799685593181
+Tested feature 'mean_10_lag': Mean mse = 0.023009711816639123
+Tested feature 'lag_10d': Mean mse = 0.02891115093946769
+Tested feature 'lag_365d': Mean mse = 0.10935909221839886
+Selected feature 'year' with improvement to mse = 0.018107485718781968
+Tested feature 'month': Mean mse = 0.009484853531592468
+Tested feature 'dayofyear': Mean mse = 0.009394187475768544
+Tested feature 'weekofyear': Mean mse = 0.00907579711163213
+Tested feature 'mean_10_lag': Mean mse = 0.025490899952456476
+Tested feature 'lag_10d': Mean mse = 0.006901636305318916
+Tested feature 'lag_365d': Mean mse = 0.02515163684759523
+Selected feature 'lag_10d' with improvement to mse = 0.006901636305318916
+Tested feature 'month': Mean mse = 0.007219992090926985
+Tested feature 'dayofyear': Mean mse = 0.007889912426198327
+Tested feature 'weekofyear': Mean mse = 0.006075272865163572
+Tested feature 'mean_10_lag': Mean mse = 0.008086141736726343
+Tested feature 'lag_365d': Mean mse = 0.00762156459737285
+Selected feature 'weekofyear' with improvement to mse = 0.006075272865163572
+Tested feature 'month': Mean mse = 0.00601018452477545
+Tested feature 'dayofyear': Mean mse = 0.007702391828928103
+Tested feature 'mean_10_lag': Mean mse = 0.008512807576921464
+Tested feature 'lag_365d': Mean mse = 0.006483220480847863
+Selected feature 'month' with improvement to mse = 0.00601018452477545
+Tested feature 'dayofyear': Mean mse = 0.008268389252273418
+Tested feature 'mean_10_lag': Mean mse = 0.00874124312396673
+Tested feature 'lag_365d': Mean mse = 0.006498813734232979
+No further improvement, stopping feature selection.
+Selected features for 'rf_model': ['year', 'lag_10d', 'weekofyear', 'month']
+
+Performing feature selection for xgb_model
+2025-04-14 22:22:51.183555
+Tested feature 'month': Mean mse = 0.07379863512917265
+Tested feature 'year': Mean mse = 0.01790376643749418
+Tested feature 'dayofyear': Mean mse = 0.08233108328190324
+Tested feature 'weekofyear': Mean mse = 0.08314756690370477
+Tested feature 'mean_10_lag': Mean mse = 0.032815273807126656
+Tested feature 'lag_10d': Mean mse = 0.03051705120830751
+Tested feature 'lag_365d': Mean mse = 0.09448438451886347
+Selected feature 'year' with improvement to mse = 0.01790376643749418
+Tested feature 'month': Mean mse = 0.009643279595527183
+Tested feature 'dayofyear': Mean mse = 0.011278135581531623
+Tested feature 'weekofyear': Mean mse = 0.010680272253488268
+Tested feature 'mean_10_lag': Mean mse = 0.02048339203910277
+Tested feature 'lag_10d': Mean mse = 0.004854122107014996
+Tested feature 'lag_365d': Mean mse = 0.03411627631734237
+Selected feature 'lag_10d' with improvement to mse = 0.004854122107014996
+Tested feature 'month': Mean mse = 0.00713207372908433
+Tested feature 'dayofyear': Mean mse = 0.008607893840538748
+Tested feature 'weekofyear': Mean mse = 0.0064896611732437074
+Tested feature 'mean_10_lag': Mean mse = 0.006848975027895227
+Tested feature 'lag_365d': Mean mse = 0.01164068336112019
+No further improvement, stopping feature selection.
+Selected features for 'xgb_model': ['year', 'lag_10d']
+
+Performing feature selection for fnn_model
+2025-04-14 22:22:53.342673
+Tested feature 'month': Mean mse = 0.08814113749484613
+Tested feature 'year': Mean mse = 0.24810417406129526
+Tested feature 'dayofyear': Mean mse = 0.11436695441057032
+Tested feature 'weekofyear': Mean mse = 0.07742136306858749
+Tested feature 'mean_10_lag': Mean mse = 0.016153156648960772
+Tested feature 'lag_10d': Mean mse = 0.01950451553763887
+Tested feature 'lag_365d': Mean mse = 0.07681185939542663
+Selected feature 'mean_10_lag' with improvement to mse = 0.016153156648960772
+Tested feature 'month': Mean mse = 0.012931542926210014
+Tested feature 'year': Mean mse = 0.09512967909676111
+Tested feature 'dayofyear': Mean mse = 0.016683096135466462
+Tested feature 'weekofyear': Mean mse = 0.018369343710918234
+Tested feature 'lag_10d': Mean mse = 0.016632567201438762
+Tested feature 'lag_365d': Mean mse = 0.01689840751807596
+Selected feature 'month' with improvement to mse = 0.012931542926210014
+Tested feature 'year': Mean mse = 0.04918868638075388
+Tested feature 'dayofyear': Mean mse = 0.018271832702346627
+Tested feature 'weekofyear': Mean mse = 0.02495567005511955
+Tested feature 'lag_10d': Mean mse = 0.018629511472419577
+Tested feature 'lag_365d': Mean mse = 0.015738060402283677
+No further improvement, stopping feature selection.
+Selected features for 'fnn_model': ['mean_10_lag', 'month']
+
+Performing feature selection for rnn_model
+2025-04-14 22:28:50.381258
+Tested feature 'month': Mean mse = 0.09154352865114258
+Tested feature 'year': Mean mse = 0.1004248305336158
+Tested feature 'dayofyear': Mean mse = 1.489519174492754
+Tested feature 'weekofyear': Mean mse = 0.07140771768264656
+Tested feature 'mean_10_lag': Mean mse = 0.013191836265318968
+Tested feature 'lag_10d': Mean mse = 0.01796806679797864
+Tested feature 'lag_365d': Mean mse = 0.09912373851232002
+Selected feature 'mean_10_lag' with improvement to mse = 0.013191836265318968
