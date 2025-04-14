@@ -19,10 +19,10 @@ import xgb_model
 import rnnlstm_model
 import datetime
 #settings could be done as arguments
-mode=multiple #single day, range recursive?
-n_splits=10 #number of splits 
-prediction_length=7# how long ahead in the future we predict 
-gap=14 #gap between splits
+mode="multiple" #single day, range recursive?
+n_splits=3 #number of splits 
+prediction_length=30# how long ahead in the future we predict 
+gap=45 #gap between splits
 
 print(datetime.datetime.now())
 try:
@@ -36,12 +36,12 @@ except Exception as e:
 #models, you can out comment
 models = [
     'linear_model',
-    #'rf_model',
-    #'xgb_model',
-    'fnn_model',
-    'rnn_model',
-    'cnn_model',
-    'rnnlstm_model',
+    'rf_model',
+    'xgb_model',
+    #'fnn_model',
+    #'rnn_model',
+    #'cnn_model',
+    #'rnnlstm_model',
     'baseline_model',
 ]
 
@@ -114,15 +114,15 @@ def split():
         if train_end_day < 0:
             break
         
-        train_idx = np.arange(0, train_end_day+1)
+        train_idx = np.arange(0, train_end_day)
         
         if(mode=="multiple"):
 
             # Validation set indices (range)
-            val_idx = np.arange(train_end_day +1, last_val_day+1)
+            val_idx = np.arange(train_end_day , last_val_day)
 
             # Test set indices (range)
-            test_idx = np.arange( last_val_day +1, last_test_day+1 )
+            test_idx = np.arange( last_val_day , last_test_day )
         
         elif(mode=="single"):
         # Validation set indices (range)
@@ -372,9 +372,16 @@ for model_name in models:
             y_full_train = pd.concat([train_df['level'], val_df['level']])
             
             if mode == "multiple":
+                X_test = test_df[selected_features]
                 y_test = test_df['level'].values
             elif mode == "single":
-                y_test = test_df['level'].values[-1:] if len(test_df) > 1 else test_df['level'].values
+    # Only use the last test data point
+                if len(test_df) > 1:
+                    X_test = test_df[selected_features].iloc[-1:].copy()
+                    y_test = test_df['level'].values[-1:]
+                else:
+                    X_test = test_df[selected_features]
+                    y_test = test_df['level'].values
             
             # Ensure DataFrames
             if isinstance(X_full_train, pd.Series):
