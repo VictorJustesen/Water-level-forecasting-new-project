@@ -9,22 +9,16 @@ from sklearn.model_selection import ParameterGrid
 
 import seaborn as sns
 
-import fnn_model 
-import rnn_model
-import cnn_model
-import baseline_model
-import xgb_model
-import rnnlstm_model
 import datetime
 #settings could be done as arguments
 mode="multiple" #single day, range recursive?
-n_splits=3 #number of splits 
-prediction_length=10# how long ahead in the future we predict 
-gap=15 #gap between splits
+n_splits=15 #number of splits 
+prediction_length=30# how long ahead in the future we predict 
+gap=45 #gap between splits
 
 print(datetime.datetime.now())
 try:
-    df = pd.read_csv("masterdata2.csv", index_col='time', parse_dates=True)
+    df = pd.read_csv("data/masterdata2.csv", index_col='time', parse_dates=True)
     print("sucess")
     print(df.head())
 except Exception as e:
@@ -35,12 +29,12 @@ except Exception as e:
 models = [
     'linear_model',
     'rf_model',
-    #'xgb_model',
-    #'fnn_model',
-    #'rnn_model',
-    #'cnn_model',
-    #'rnnlstm_model',
-    #'baseline_model',
+    'xgb_model',
+    'fnn_model',
+    'rnn_model',
+    'cnn_model',
+    'rnnlstm_model',
+    'baseline_model',
 ]
 
 imported_models = {}
