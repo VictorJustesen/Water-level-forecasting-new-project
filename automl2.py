@@ -28,18 +28,17 @@ except Exception as e:
 #models, you can out comment
 models = [
     'linear_model',
-    'rf_model',
-    'xgb_model',
-    'fnn_model',
-    'rnn_model',
-    'cnn_model',
-    'rnnlstm_model',
+    #'rf_model',
+    #'xgb_model',
+    #'fnn_model',
+    #'rnn_model',
+    #'cnn_model',
+    #'rnnlstm_model',
     'baseline_model',
 ]
 
 imported_models = {}
 model_params_groups = {}
-model_types = {}
 # get attributes in maps
 for model_name in models:
 
@@ -47,7 +46,6 @@ for model_name in models:
     module = importlib.import_module(module_path) 
     imported_models[model_name] = getattr(module, model_name)
     model_params_groups[model_name] = getattr(module, 'param_groups')
-    model_types[model_name] = getattr(module, 'model_type')
 
 print("running models: ", models)
 #needs to also be changed in some models 
@@ -168,71 +166,66 @@ for model_name in models:
     print(f"\nPerforming feature selection for {model_name}")
     print(datetime.datetime.now())
 
-    model_type = model_types[model_name]
     model_func = imported_models[model_name]
     
-    if model_type == 'multivariate':
-        selected_features = []
-        remaining_features = [col for col in df.columns if col != 'level']
-        best_score = float('inf')
-        
-        while remaining_features:
-            scores = {}
-            for feature in remaining_features:
-                current_features = selected_features + [feature]
-                errors = []
-                
-                for train_idx, val_idx, test_idx in split():
-                    train_df = df.iloc[train_idx]
-                    val_df = df.iloc[val_idx]
-                    
-                    X_train = train_df[current_features]
-                    y_train = train_df['level']
-                    X_val = val_df[current_features]
-                    y_val = val_df['level']
-                    
-                    if isinstance(X_train, pd.Series):
-                        X_train = X_train.to_frame()
-                    if isinstance(X_val, pd.Series):
-                        X_val = X_val.to_frame()
-                    
-                    try:
-                        # Handle different modes for prediction
-                        if mode == "multiple":
-                            y_pred = model_func(X_train, y_train, X_val, params={})
-                        elif mode == "single":
-                            # For single mode, we only care about the last prediction
-                            y_pred = model_func(X_train, y_train, X_val.iloc[-1:], params={})
-                            
-                                
-                        error = error_metric(y_val, y_pred)
-                    except Exception as e:
-                        print(f"Error with feature '{feature}' in model '{model_name}': {e}")
-                        error = float('inf')
-                    
-                    errors.append(error)
-                
-                mean_error = np.mean(errors)
-                scores[feature] = mean_error
-                print(f"Tested feature '{feature}': Mean {metric} = {mean_error}")
-                
-            best_feature, best_feature_score = min(scores.items(), key=lambda x: x[1])
+    selected_features = []
+    remaining_features = [col for col in df.columns if col != 'level']
+    best_score = float('inf')
+    
+    while remaining_features:
+        scores = {}
+        for feature in remaining_features:
+            current_features = selected_features + [feature]
+            errors = []
             
-            if best_feature_score < best_score:
-                selected_features.append(best_feature)
-                remaining_features.remove(best_feature)
-                best_score = best_feature_score
-                print(f"Selected feature '{best_feature}' with improvement to {metric} = {best_feature_score}")
-            else:
-                print("No further improvement, stopping feature selection.")
-                break
+            for train_idx, val_idx, test_idx in split():
+                train_df = df.iloc[train_idx]
+                val_df = df.iloc[val_idx]
+                
+                X_train = train_df[current_features]
+                y_train = train_df['level']
+                X_val = val_df[current_features]
+                y_val = val_df['level']
+                
+                if isinstance(X_train, pd.Series):
+                    X_train = X_train.to_frame()
+                if isinstance(X_val, pd.Series):
+                    X_val = X_val.to_frame()
+                
+                try:
+                    # Handle different modes for prediction
+                    if mode == "multiple":
+                        y_pred = model_func(X_train, y_train, X_val, params={})
+                    elif mode == "single":
+                        # For single mode, we only care about the last prediction
+                        y_pred = model_func(X_train, y_train, X_val.iloc[-1:], params={})
+                        
+                            
+                    error = error_metric(y_val, y_pred)
+                except Exception as e:
+                    print(f"Error with feature '{feature}' in model '{model_name}': {e}")
+                    error = float('inf')
+                
+                errors.append(error)
+            
+            mean_error = np.mean(errors)
+            scores[feature] = mean_error
+            print(f"Tested feature '{feature}': Mean {metric} = {mean_error}")
+            
+        best_feature, best_feature_score = min(scores.items(), key=lambda x: x[1])
         
-        print(f"Selected features for '{model_name}': {selected_features}")
-        selected_features_dict[model_name] = selected_features
-    else:
-        selected_features = ['level']
-        selected_features_dict[model_name] = selected_features
-        print(f"Univariate model selected. Using 'level' as the only feature for '{model_name}'.")
+        if best_feature_score < best_score:
+            selected_features.append(best_feature)
+            remaining_features.remove(best_feature)
+            best_score = best_feature_score
+            print(f"Selected feature '{best_feature}' with improvement to {metric} = {best_feature_score}")
+        else:
+            print("No further improvement, stopping feature selection.")
+            break
+    
+    print(f"Selected features for '{model_name}': {selected_features}")
+    selected_features_dict[model_name] = selected_features
+    
 
 
 #hyperperameter tuning 
@@ -246,7 +239,6 @@ for model_name in models:
     print(f"\nStarting hyperparameter tuning for '{model_name}'")
     print(datetime.datetime.now())
 
-    model_type = model_types[model_name]
     model_func = imported_models[model_name]
     param_groups = model_params_groups[model_name]
     selected_features = selected_features_dict.get(model_name, ['level'])
@@ -268,33 +260,31 @@ for model_name in models:
                 val_df = df.iloc[val_idx]
                 y_val = val_df['level'].values
                 
-                if model_type == 'multivariate':
-                    X_train = train_df[selected_features]
-                    y_train = train_df['level']
-                    X_val = val_df[selected_features]
-                    
-                    # Ensure DataFrames
-                    if isinstance(X_train, pd.Series):
-                        X_train = X_train.to_frame()
-                    if isinstance(X_val, pd.Series):
-                        X_val = X_val.to_frame()
-                    
-                    try:
-                        # Handle different modes for prediction
-                        if mode == "multiple":
-                            y_pred = model_func(X_train, y_train, X_val, current_params)
-                        elif mode == "single":
-                            # For single mode, we only care about the last prediction
-                            y_pred = model_func(X_train, y_train, X_val.iloc[-1:], current_params)
-                           
-                        error = error_metric(y_val, y_pred)
-                    except Exception as e:
-                        print(f"Error during parameter tuning for '{model_name}' with params {params}: {e}")
-                        error = float('inf')
-                    
-                    errors.append(error)
-                else:
-                    pass 
+                X_train = train_df[selected_features]
+                y_train = train_df['level']
+                X_val = val_df[selected_features]
+                
+                # Ensure DataFrames
+                if isinstance(X_train, pd.Series):
+                    X_train = X_train.to_frame()
+                if isinstance(X_val, pd.Series):
+                    X_val = X_val.to_frame()
+                
+                try:
+                    # Handle different modes for prediction
+                    if mode == "multiple":
+                        y_pred = model_func(X_train, y_train, X_val, current_params)
+                    elif mode == "single":
+                        # For single mode, we only care about the last prediction
+                        y_pred = model_func(X_train, y_train, X_val.iloc[-1:], current_params)
+                        
+                    error = error_metric(y_val, y_pred)
+                except Exception as e:
+                    print(f"Error during parameter tuning for '{model_name}' with params {params}: {e}")
+                    error = float('inf')
+                
+                errors.append(error)
+                
                 
             mean_error = np.mean(errors)
             

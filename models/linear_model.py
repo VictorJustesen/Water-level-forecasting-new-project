@@ -19,4 +19,3 @@ param_groups = {
     }
 }
 
-model_type = 'multivariate'

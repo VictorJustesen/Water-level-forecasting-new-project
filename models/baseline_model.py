@@ -24,4 +24,3 @@ param_groups = {
     'group1': {"best_advisor": "deena"}
 }
 
-model_type = 'baseline'
