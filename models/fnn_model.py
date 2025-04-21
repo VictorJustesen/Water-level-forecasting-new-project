@@ -1,4 +1,3 @@
-# ffn_model.py
 import numpy as np
 import pandas as pd
 from tensorflow import keras
@@ -33,7 +32,9 @@ def fnn_model(X_train, y_train, X_test, params=None):
         [
             layers.Input(shape=(n_features,)),
             layers.Dense(params.get('units_layer1', 64), activation=params.get('activation_layer1', 'relu')),
+            layers.Dropout(params.get('dropout1', 0.0)),  
             layers.Dense(params.get('units_layer2', 32), activation=params.get('activation_layer2', 'relu')),
+            layers.Dropout(params.get('dropout2', 0.0)),  # Add dropout
             layers.Dense(1) # Output layer for regression
         ]
     )
@@ -52,6 +53,10 @@ def fnn_model(X_train, y_train, X_test, params=None):
 
 # Parameter groups for hyperparameter tuning
 param_groups = {
+    'dropout_rates': {
+    'dropout1': [0.0, 0.1, 0.2, 0.3],
+    'dropout2': [0.0, 0.1, 0.2]
+},
     'group1_structure': {
         'units_layer1': [32, 64, 128],
         'units_layer2': [16, 32, 64],

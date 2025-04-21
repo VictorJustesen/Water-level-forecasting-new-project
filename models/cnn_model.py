@@ -1,14 +1,10 @@
-# cnn_model.py
 import numpy as np
 import pandas as pd
 from tensorflow import keras
 from tensorflow.keras import layers
 
 def cnn_model(X_train, y_train, X_test, params=None):
-    """
-    Trains and predicts using a 1D Convolutional Neural Network (CNN).
-    Treats features as the 'spatial' dimension for convolution.
-    """
+  
     if params is None:
         params = {
             'filters': 64,

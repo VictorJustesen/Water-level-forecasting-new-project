@@ -81,6 +81,9 @@ def add_lags(df):
     for days in range(365,366): #same but with year
         df[f'lag_{days}d'] = (df.index - pd.Timedelta(days, unit='d')).map(target_map)
 
+    df['level_diff'] = df['level'].diff()
+    df['level_pct_change'] = df['level'].pct_change()
+
     df = df.dropna()
 
 
@@ -187,10 +190,10 @@ for model_name in models:
                 X_val = val_df[current_features]
                 y_val = val_df['level']
                 
-                if isinstance(X_train, pd.Series):
-                    X_train = X_train.to_frame()
-                if isinstance(X_val, pd.Series):
-                    X_val = X_val.to_frame()
+               # if isinstance(X_train, pd.Series):
+              #      X_train = X_train.to_frame()
+              #  if isinstance(X_val, pd.Series):
+               #     X_val = X_val.to_frame()
                 
                 try:
                     # Handle different modes for prediction
@@ -265,10 +268,10 @@ for model_name in models:
                 X_val = val_df[selected_features]
                 
                 # Ensure DataFrames
-                if isinstance(X_train, pd.Series):
-                    X_train = X_train.to_frame()
-                if isinstance(X_val, pd.Series):
-                    X_val = X_val.to_frame()
+                #if isinstance(X_train, pd.Series):
+                 #   X_train = X_train.to_frame()
+                #if isinstance(X_val, pd.Series):
+                #    X_val = X_val.to_frame()
                 
                 try:
                     # Handle different modes for prediction
@@ -368,10 +371,10 @@ for model_name in models:
                     y_test = test_df['level'].values
             
             # Ensure DataFrames
-            if isinstance(X_full_train, pd.Series):
-                X_full_train = X_full_train.to_frame()
-            if isinstance(X_test, pd.Series):
-                X_test = X_test.to_frame()
+           # if isinstance(X_full_train, pd.Series):
+           #     X_full_train = X_full_train.to_frame()
+           # if isinstance(X_test, pd.Series):
+           #     X_test = X_test.to_frame()
             
             y_pred = model_func(X_full_train, y_full_train, X_test, best_params)
             

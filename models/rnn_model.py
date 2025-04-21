@@ -1,14 +1,10 @@
-# rnn_model.py
 import numpy as np
 import pandas as pd
 from tensorflow import keras
 from tensorflow.keras import layers
 
 def rnn_model(X_train, y_train, X_test, params=None):
-    """
-    Trains and predicts using a Recurrent Neural Network (RNN), specifically LSTM.
-    Assumes input features represent the state at a single time step.
-    """
+   
     if params is None:
         params = {
             'units': 50,
@@ -18,6 +14,7 @@ def rnn_model(X_train, y_train, X_test, params=None):
             'epochs': 50,
             'batch_size': 32,
             'verbose': 0,
+            'recurrent_dropout': 0,
         }
 
     # Ensure numpy arrays
@@ -38,7 +35,7 @@ def rnn_model(X_train, y_train, X_test, params=None):
         [
             layers.Input(shape=(1, n_features)), # 1 time step
             # Using simplernn layer
-            layers.SimpleRNN(params.get('units', 50), activation=params.get('activation', 'relu')),
+            layers.SimpleRNN(params.get('units', 50), activation=params.get('activation', 'relu'), recurrent_dropout=params.get('recurrent_dropout', 0.0)),
             layers.Dense(1) # Output layer for regression
         ]
     )
@@ -57,6 +54,9 @@ def rnn_model(X_train, y_train, X_test, params=None):
 
 # Parameter groups for hyperparameter tuning
 param_groups = {
+       'dropout': {
+    'dropout': [0.0, 0.1, 0.2, 0.3],
+},
     'group1_structure': {
         'units': [32, 50, 100],
     },

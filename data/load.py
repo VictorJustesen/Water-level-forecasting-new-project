@@ -60,16 +60,24 @@ df = df.dropna()
     
 #df['hour'] = df.index.hour
 #df['dayofweek'] = df.index.dayofweek
-df['month'] = df.index.month
+#df['month'] = df.index.month
 df['year'] = df.index.year
-df['dayofyear'] = df.index.dayofyear
+#df['dayofyear'] = df.index.dayofyear
 #df['quarter'] = df.index.quarter
 #df['dayofmonth'] = df.index.day
-df['weekofyear'] = df.index.isocalendar().week 
-  
+#df['weekofyear'] = df.index.isocalendar().week 
+
+df['sin_month'] = np.sin(2 * np.pi * df.index.month / 12)
+df['cos_month'] = np.cos(2 * np.pi * df.index.month / 12)
+df['sin_dayofyear'] = np.sin(2 * np.pi * df.index.dayofyear / 365.25)
+df['cos_dayofyear'] = np.cos(2 * np.pi * df.index.dayofyear / 365.25)
+
+
+
+
 try:
 
-    df.to_csv("masterdata2.csv")
+    df.to_csv("masterdata3.csv")
     print("sucess" )
     print(df.columns)
 

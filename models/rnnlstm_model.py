@@ -1,14 +1,10 @@
-# rnn_model.py
 import numpy as np
 import pandas as pd
 from tensorflow import keras
 from tensorflow.keras import layers
 
 def rnnlstm_model(X_train, y_train, X_test, params=None):
-    """
-    Trains and predicts using a Recurrent Neural Network (RNN), specifically LSTM.
-    Assumes input features represent the state at a single time step.
-    """
+   
     if params is None:
         params = {
             'units': 50,
@@ -17,7 +13,8 @@ def rnnlstm_model(X_train, y_train, X_test, params=None):
             'loss': 'mse',
             'epochs': 50,
             'batch_size': 32,
-            'verbose': 0
+            'verbose': 0,
+            'dropout':0
         }
 
     # Ensure numpy arrays
@@ -38,7 +35,7 @@ def rnnlstm_model(X_train, y_train, X_test, params=None):
         [
             layers.Input(shape=(1, n_features)), # 1 time step
             # Using LSTM layer
-            layers.LSTM(params.get('units', 50), activation=params.get('activation', 'relu')),
+            layers.LSTM(params.get('units', 50),dropout=params.get('dropout', 0))),
             layers.Dense(1) # Output layer for regression
         ]
     )
@@ -57,12 +54,13 @@ def rnnlstm_model(X_train, y_train, X_test, params=None):
 
 # Parameter groups for hyperparameter tuning
 param_groups = {
+'dropout': {
+    'dropout': [0.0, 0.1, 0.2, 0.3],
+},
     'group1_structure': {
         'units': [32, 50, 100],
     },
-    'group2_activation': {
-         'activation': ['relu', 'tanh'],
-    },
+   
     'group3_training': {
         'epochs': [50, 100],
         'batch_size': [32, 64],
