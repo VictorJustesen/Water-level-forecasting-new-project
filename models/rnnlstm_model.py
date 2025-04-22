@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from tensorflow import keras
 from tensorflow.keras import layers
-from create_sequences import create_sequences
+from .create_sequences import create_sequences
 
 def rnnlstm_model(X_train, y_train, X_test, params=None):
    
@@ -28,7 +28,7 @@ def rnnlstm_model(X_train, y_train, X_test, params=None):
     if X_train.ndim == 1: X_train = X_train.reshape(-1, 1)
     if X_test.ndim == 1: X_test = X_test.reshape(-1, 1)
 
-  X_train_seq, y_train_seq = create_sequences(X_train, y_train, seq_length)
+    X_train_seq, y_train_seq = create_sequences(X_train, y_train, seq_length)
     
     # Handle test sequences based on prediction mode
     if X_test.shape[0] == 1:  # Single prediction
@@ -86,7 +86,7 @@ param_groups = {
         'epochs': [50, 100],
         'batch_size': [32, 64],
         'optimizer': ['adam', 'rmsprop']
-    }
+    },
     'sequence_length': {
         'seq_length': [3, 7, 14]
     },

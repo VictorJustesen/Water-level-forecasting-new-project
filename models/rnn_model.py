@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from tensorflow import keras
 from tensorflow.keras import layers
-from create_sequences import create_sequences
+from .create_sequences import create_sequences
 
 def rnn_model(X_train, y_train, X_test, params=None):
    
@@ -34,7 +34,7 @@ def rnn_model(X_train, y_train, X_test, params=None):
     X_train_rnn = X_train.reshape((X_train.shape[0], 1, n_features))
     X_test_rnn = X_test.reshape((X_test.shape[0], 1, n_features))
 
-  seq_length = params.get('seq_length', 7)
+    seq_length = params.get('seq_length', 7)
     
     # Create training sequences
     X_train_seq, y_train_seq = create_sequences(X_train, y_train, seq_length)
