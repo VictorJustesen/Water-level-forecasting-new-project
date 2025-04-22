@@ -68,7 +68,6 @@ param_groups = {
     'group3_training': {
         'epochs': [50, 100],
         'batch_size': [32, 64],
-        'optimizer': ['adam', 'rmsprop']
     }
 }
 

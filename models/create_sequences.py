@@ -1,3 +1,5 @@
+import numpy as np
+
 def create_sequences(X, y, seq_length):
   
     X_seq, y_seq = [], []

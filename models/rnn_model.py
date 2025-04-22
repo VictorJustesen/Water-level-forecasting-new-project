@@ -14,8 +14,7 @@ def rnn_model(X_train, y_train, X_test, params=None):
             'loss': 'mse',
             'epochs': 50,
             'batch_size': 32,
-            'verbose': 0,
-            'recurrent_dropout': 0,
+            'dropout': 0,
             'seq_length': 7  # Default sequence length
 
         }
@@ -31,8 +30,8 @@ def rnn_model(X_train, y_train, X_test, params=None):
     # Reshape input for RNN: (n_samples, n_timesteps, n_features)
     # We treat the provided features as a single time step
     n_features = X_train.shape[1]
-    X_train_rnn = X_train.reshape((X_train.shape[0], 1, n_features))
-    X_test_rnn = X_test.reshape((X_test.shape[0], 1, n_features))
+    X_train_seq = X_train.reshape((X_train.shape[0], 1, n_features))
+    X_test_seq = X_test.reshape((X_test.shape[0], 1, n_features))
 
     seq_length = params.get('seq_length', 7)
     
@@ -49,11 +48,17 @@ def rnn_model(X_train, y_train, X_test, params=None):
             # If test data is smaller than sequence length, combine with end of training data
             combined = np.vstack((X_train[-seq_length+test_size:], X_test))
             X_test_seq = np.array([combined[-seq_length:]])
-        else:
-            # Create sequences from test data
+        else: # test_size >= seq_length
+            required_train_history = X_train[-seq_length:]
+
+            combined_data = np.vstack((required_train_history, X_test))
+
             X_test_seq = []
-            for i in range(0, test_size - seq_length + 1):
-                X_test_seq.append(X_test[i:i+seq_length])
+            for i in range(test_size):
+                start_index = i
+                end_index = i + seq_length
+                X_test_seq.append(combined_data[start_index:end_index])
+
             X_test_seq = np.array(X_test_seq)
     
     # Number of features
@@ -63,7 +68,7 @@ def rnn_model(X_train, y_train, X_test, params=None):
         [
             layers.Input(shape=(seq_length, n_features)), 
             # Using simplernn layer
-            layers.SimpleRNN(params.get('units', 50), activation=params.get('activation', 'relu'), recurrent_dropout=params.get('recurrent_dropout', 0.0)),
+            layers.SimpleRNN(params.get('units', 50), activation=params.get('activation', 'relu'), dropout=params.get('dropout', 0.0)),
             layers.Dense(1) # Output layer for regression
         ]
     )
@@ -71,12 +76,12 @@ def rnn_model(X_train, y_train, X_test, params=None):
     model.compile(optimizer=params.get('optimizer', 'adam'),
                   loss=params.get('loss', 'mse'))
 
-    model.fit(X_train_rnn, y_train,
+    model.fit(X_train_seq, y_train_seq,
               epochs=params.get('epochs', 50),
               batch_size=params.get('batch_size', 32),
-              verbose=params.get('verbose', 0))
+              verbose=0)
 
-    y_pred = model.predict(X_test_rnn, verbose=params.get('verbose', 0))
+    y_pred = model.predict(X_test_seq)
 
     return y_pred.flatten()
 
@@ -94,7 +99,6 @@ param_groups = {
     'group3_training': {
         'epochs': [50, 100],
         'batch_size': [32, 64],
-        'optimizer': ['adam', 'rmsprop']
     },
     'sequence_length': {
         'seq_length': [3, 7, 14]

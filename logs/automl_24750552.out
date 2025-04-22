@@ -1,0 +1,168 @@
+==========================================================
+Job Started on n-62-20-12
+Job ID: 24750552
+Working Directory: /zhome/44/a/187127/school/Water-level-forecasting-new-project
+Requested Cores: 4
+Allocated Hosts: n-62-20-12 n-62-20-12 n-62-20-12 n-62-20-12
+Queue: gpuv100
+Start Time: Tue Apr 22 12:17:51 CEST 2025
+==========================================================
+Loading required modules...
+Modules loaded:
+Activating Conda environment 'forecasting'...
+Conda environment: forecastinghpc
+Python path: /zhome/44/a/187127/anaconda3/envs/forecastinghpc/bin/python
+Working directory set to: /zhome/44/a/187127/school/Water-level-forecasting-new-project
+Running automl.py...
+2025-04-22 12:18:00.073526
+sucess
+                level  month  year  dayofyear  weekofyear
+time                                                     
+2014-06-20  11.437010      6  2014        171          25
+2014-06-21  11.439094      6  2014        172          25
+2014-06-22  11.435438      6  2014        173          25
+2014-06-23  11.428292      6  2014        174          26
+2014-06-24  11.427969      6  2014        175          26
+running models:  ['linear_model', 'rnn_model', 'rnnlstm_model', 'baseline_model']
+error metric:  mse
+                level  month  year  ...   lag_365d  level_diff  level_pct_change
+time                                ...                                         
+2015-06-20  11.448463      6  2015  ...  11.437010   -0.001234         -0.000108
+2015-06-21  11.433109      6  2015  ...  11.439094   -0.015354         -0.001341
+2015-06-22  11.435677      6  2015  ...  11.435438    0.002568          0.000225
+2015-06-23  11.443779      6  2015  ...  11.428292    0.008102          0.000708
+2015-06-24  11.430875      6  2015  ...  11.427969   -0.012904         -0.001128
+
+[5 rows x 10 columns]
+feature selection
+
+Performing feature selection for linear_model
+2025-04-22 12:18:11.846405
+Tested feature 'month': Mean mse = 0.06149229970740502
+Tested feature 'year': Mean mse = 0.0736889950579829
+Tested feature 'dayofyear': Mean mse = 0.06157777290450695
+Tested feature 'weekofyear': Mean mse = 0.06144115390472899
+Tested feature 'mean_30_lag': Mean mse = 0.03976455112175071
+Tested feature 'lag_30d': Mean mse = 0.03599111411618282
+Tested feature 'lag_365d': Mean mse = 0.06760224945136473
+Tested feature 'level_diff': Mean mse = 0.06342635327575677
+Tested feature 'level_pct_change': Mean mse = 0.06340853914197327
+Selected feature 'lag_30d' with improvement to mse = 0.03599111411618282
+Tested feature 'month': Mean mse = 0.0373689119328614
+Tested feature 'year': Mean mse = 0.041070599337976056
+Tested feature 'dayofyear': Mean mse = 0.0373469873354555
+Tested feature 'weekofyear': Mean mse = 0.03707914392825903
+Tested feature 'mean_30_lag': Mean mse = 0.037716501165708384
+Tested feature 'lag_365d': Mean mse = 0.04075374985252498
+Tested feature 'level_diff': Mean mse = 0.036014475312705845
+Tested feature 'level_pct_change': Mean mse = 0.03600642268842058
+No further improvement, stopping feature selection.
+Selected features for 'linear_model': ['lag_30d']
+
+Performing feature selection for rnn_model
+2025-04-22 12:18:12.044777
+Tested feature 'month': Mean mse = 0.030786620751555416
+Tested feature 'year': Mean mse = 0.12020126776070926
+Tested feature 'dayofyear': Mean mse = 0.08603168602771409
+Tested feature 'weekofyear': Mean mse = 0.05859501061362207
+Tested feature 'mean_30_lag': Mean mse = 0.0529270256710028
+Tested feature 'lag_30d': Mean mse = 0.04990111914602107
+Tested feature 'lag_365d': Mean mse = 0.08670906936207574
+Tested feature 'level_diff': Mean mse = 0.06497426478263219
+Tested feature 'level_pct_change': Mean mse = 0.06433580409016272
+Selected feature 'month' with improvement to mse = 0.030786620751555416
+Tested feature 'year': Mean mse = 0.07531699286928102
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24750552: <AutoML_WaterLevel> in cluster <dcc> Exited
+
+Job <AutoML_WaterLevel> was submitted from host <hpclogin1> by user <s224296> in cluster <dcc> at Tue Apr 22 12:17:44 2025
+Job was executed on host(s) <4*n-62-20-12>, in queue <gpuv100>, as user <s224296> in cluster <dcc> at Tue Apr 22 12:17:46 2025
+</zhome/44/a/187127> was used as the home directory.
+</zhome/44/a/187127/school/Water-level-forecasting-new-project> was used as the working directory.
+Started at Tue Apr 22 12:17:46 2025
+Terminated at Tue Apr 22 12:21:50 2025
+Results reported at Tue Apr 22 12:21:50 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+# LSF Batch Job Script for running automl.py
+
+### General LSF options ###
+
+# -- Specify the queue --
+# Use a GPU queue appropriate for your models (e.g., gpuv100 or gpua100)
+# Remember A100 requires code compiled with CUDA >= 11.0
+#BSUB -q gpuv100
+
+# -- Set the job Name --
+#BSUB -J AutoML_WaterLevel
+
+# -- Ask for number of cores (CPU slots) --
+# Adjust based on data loading/preprocessing needs. 8 is a reasonable start.
+#BSUB -n 4
+
+# -- Request GPU resources --
+# Request 1 GPU in exclusive process mode.
+#BSUB -gpu "num=1:mode=exclusive_process"
+
+# -- Specify that all cores/GPU must be on the same host/node --
+#BSUB -R "span[hosts=1]"
+
+# -- Specify memory requested PER CORE/SLOT --
+# Example: 8GB RAM per core (total 64GB). ADJUST BASED ON YOUR NEEDS!
+#BSUB -R "rusage[mem=8GB]"
+
+# -- Specify memory limit PER CORE/SLOT (Job killed if exceeded) --
+# Example: 10GB per core (total 80GB limit). ADJUST BASED ON YOUR NEEDS!
+#BSUB -M 9GB
+
+# -- Set walltime limit: hh:mm --
+# Max 24:00 for GPU queues. START SHORT (e.g., 1:00) FOR TESTING!
+# Adjust based on expected runtime for the full job.
+#BSUB -W 10:00
+
+# -- Specify output and error files (%J expands to Job ID) --
+# We'll create the 'logs' directory below.
+#BSUB -o logs/automl_%J.out
+#BSUB -e logs/automl_%J.err
+
+# -- Email notifications (Optional) --
+# Uncomment and set your DTU email if desired
+##BSUB -u s224296@dtu.dk  # Use your actual email
+# Send email on job start (-B) and job end/failure (-N)
+##BSUB -B
+##BSUB -N
+
+### End of LSF options ###
+
+(... more ...)
+------------------------------------------------------------
+
+Exited with exit code 143.
+
+Resource usage summary:
+
+    CPU time :                                   312.00 sec.
+    Max Memory :                                 662 MB
+    Average Memory :                             520.50 MB
+    Total Requested Memory :                     32768.00 MB
+    Delta Memory :                               32106.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                40
+    Run time :                                   265 sec.
+    Turnaround time :                            246 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <logs/automl_24750552.err> for stderr output of this job.
+

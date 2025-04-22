@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import importlib
+from sklearn.preprocessing import StandardScaler
 
 from sklearn.metrics import r2_score,mean_absolute_error, mean_squared_error
 
@@ -12,13 +13,13 @@ import seaborn as sns
 import datetime
 #settings could be done as arguments
 mode="multiple" #single day, range recursive?
-n_splits=3 #number of splits 
+n_splits=10 #number of splits 
 prediction_length=30# how long ahead in the future we predict 
 gap=45 #gap between splits
 
 print(datetime.datetime.now())
 try:
-    df = pd.read_csv("data/masterdata2.csv", index_col='time', parse_dates=True)
+    df = pd.read_csv("data/masterdata3.csv", index_col='time', parse_dates=True)
     print("sucess")
     print(df.head())
 except Exception as e:
@@ -64,6 +65,35 @@ def error_metric(y_true, y_pred):
 
 print("error metric: ", metric)
 
+def scale_features(df, target_col='level', exclude_cols=None):
+    """
+    Scale all features in the dataframe except target and excluded columns.
+    Returns scaled dataframe and scaler for inverse transformation.
+    """
+    if exclude_cols is None:
+        exclude_cols = []
+    
+    # Make sure target is in excluded columns
+    if target_col not in exclude_cols:
+        exclude_cols.append(target_col)
+    
+    # Select columns to scale
+    cols_to_scale = [col for col in df.columns if col not in exclude_cols]
+    
+    # Create a copy of the dataframe to avoid modifying the original
+    df_scaled = df.copy()
+    
+    # Initialize scaler dictionary to store scalers for each column
+    scalers = {}
+    
+    # Scale each column individually
+    for col in cols_to_scale:
+        scaler = StandardScaler()
+        df_scaled[col] = scaler.fit_transform(df_scaled[[col]])
+        scalers[col] = scaler
+    
+    return df_scaled, scalers
+
 def add_lags(df):
     target_map = df['level'].to_dict()
 
@@ -90,7 +120,11 @@ def add_lags(df):
     return df
 
 df = add_lags(df)
-print(df.head())
+
+df_scaled, scalers = scale_features(df, target_col='level')
+print("Data after scaling:")
+print(df_scaled.head())
+df = df_scaled
 
 def split():
 
