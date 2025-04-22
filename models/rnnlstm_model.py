@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from tensorflow import keras
 from tensorflow.keras import layers
+from create_sequences import create_sequences
 
 def rnnlstm_model(X_train, y_train, X_test, params=None):
    
@@ -14,7 +15,9 @@ def rnnlstm_model(X_train, y_train, X_test, params=None):
             'epochs': 50,
             'batch_size': 32,
             'verbose': 0,
-            'dropout':0
+            'dropout':0,
+            'seq_length': 30  # Default sequence length
+
         }
 
     # Ensure numpy arrays
@@ -25,17 +28,35 @@ def rnnlstm_model(X_train, y_train, X_test, params=None):
     if X_train.ndim == 1: X_train = X_train.reshape(-1, 1)
     if X_test.ndim == 1: X_test = X_test.reshape(-1, 1)
 
-    # Reshape input for RNN: (n_samples, n_timesteps, n_features)
-    # We treat the provided features as a single time step
+  X_train_seq, y_train_seq = create_sequences(X_train, y_train, seq_length)
+    
+    # Handle test sequences based on prediction mode
+    if X_test.shape[0] == 1:  # Single prediction
+        # For single prediction, use the last seq_length observations from training
+        X_test_seq = np.array([X_train[-seq_length:]])
+    else:  # Multiple predictions
+        # For multiple predictions, we need to handle differently depending on what you want
+        # Option 1: Create non-overlapping sequences (batch prediction)
+        test_size = X_test.shape[0]
+        if test_size < seq_length:
+            # If test data is smaller than sequence length, combine with end of training data
+            combined = np.vstack((X_train[-seq_length+test_size:], X_test))
+            X_test_seq = np.array([combined[-seq_length:]])
+        else:
+            # Create sequences from test data
+            X_test_seq = []
+            for i in range(0, test_size - seq_length + 1):
+                X_test_seq.append(X_test[i:i+seq_length])
+            X_test_seq = np.array(X_test_seq)
+    
+    # Number of features
     n_features = X_train.shape[1]
-    X_train_rnn = X_train.reshape((X_train.shape[0], 1, n_features))
-    X_test_rnn = X_test.reshape((X_test.shape[0], 1, n_features))
 
     model = keras.Sequential(
         [
-            layers.Input(shape=(1, n_features)), # 1 time step
+        layers.Input(shape=(seq_length, n_features)),  # (sequence_length, features)
             # Using LSTM layer
-            layers.LSTM(params.get('units', 50),dropout=params.get('dropout', 0))),
+            layers.LSTM(params.get('units', 50),dropout=params.get('dropout', 0)),
             layers.Dense(1) # Output layer for regression
         ]
     )
@@ -66,5 +87,8 @@ param_groups = {
         'batch_size': [32, 64],
         'optimizer': ['adam', 'rmsprop']
     }
+    'sequence_length': {
+        'seq_length': [3, 7, 14]
+    },
 }
 

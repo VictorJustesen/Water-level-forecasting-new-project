@@ -1,0 +1,23 @@
+Loaded module: cuda/11.8
+Currently Loaded Modulefiles:
+ 1) cuda/11.8(default)  
+
+Key:
+(symbolic-version)  
+Traceback (most recent call last):
+  File "/zhome/44/a/187127/school/Water-level-forecasting-new-project/automl2.py", line 46, in <module>
+    module = importlib.import_module(module_path) 
+  File "/zhome/44/a/187127/anaconda3/envs/forecastinghpc/lib/python3.9/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 986, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 680, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 846, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 983, in get_code
+  File "<frozen importlib._bootstrap_external>", line 913, in source_to_code
+  File "<frozen importlib._bootstrap>", line 228, in _call_with_frames_removed
+  File "/zhome/44/a/187127/school/Water-level-forecasting-new-project/models/rnn_model.py", line 37
+    seq_length = params.get('seq_length', 7)
+                                            ^
+IndentationError: unindent does not match any outer indentation level

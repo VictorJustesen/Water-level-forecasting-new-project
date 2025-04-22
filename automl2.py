@@ -12,7 +12,7 @@ import seaborn as sns
 import datetime
 #settings could be done as arguments
 mode="multiple" #single day, range recursive?
-n_splits=15 #number of splits 
+n_splits=3 #number of splits 
 prediction_length=30# how long ahead in the future we predict 
 gap=45 #gap between splits
 
@@ -31,9 +31,9 @@ models = [
     #'rf_model',
     #'xgb_model',
     #'fnn_model',
-    #'rnn_model',
+    'rnn_model',
     #'cnn_model',
-    #'rnnlstm_model',
+    'rnnlstm_model',
     'baseline_model',
 ]
 

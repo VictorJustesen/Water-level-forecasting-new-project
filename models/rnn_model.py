@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from tensorflow import keras
 from tensorflow.keras import layers
+from create_sequences import create_sequences
 
 def rnn_model(X_train, y_train, X_test, params=None):
    
@@ -15,6 +16,8 @@ def rnn_model(X_train, y_train, X_test, params=None):
             'batch_size': 32,
             'verbose': 0,
             'recurrent_dropout': 0,
+            'seq_length': 7  # Default sequence length
+
         }
 
     # Ensure numpy arrays
@@ -31,9 +34,34 @@ def rnn_model(X_train, y_train, X_test, params=None):
     X_train_rnn = X_train.reshape((X_train.shape[0], 1, n_features))
     X_test_rnn = X_test.reshape((X_test.shape[0], 1, n_features))
 
+  seq_length = params.get('seq_length', 7)
+    
+    # Create training sequences
+    X_train_seq, y_train_seq = create_sequences(X_train, y_train, seq_length)
+    
+    # Handle test sequences based on prediction mode
+    if X_test.shape[0] == 1:  # Single prediction
+        # For single prediction, use the last seq_length observations from training
+        X_test_seq = np.array([X_train[-seq_length:]])
+    else:  # Multiple predictions
+        test_size = X_test.shape[0]
+        if test_size < seq_length:
+            # If test data is smaller than sequence length, combine with end of training data
+            combined = np.vstack((X_train[-seq_length+test_size:], X_test))
+            X_test_seq = np.array([combined[-seq_length:]])
+        else:
+            # Create sequences from test data
+            X_test_seq = []
+            for i in range(0, test_size - seq_length + 1):
+                X_test_seq.append(X_test[i:i+seq_length])
+            X_test_seq = np.array(X_test_seq)
+    
+    # Number of features
+    n_features = X_train.shape[1]
+
     model = keras.Sequential(
         [
-            layers.Input(shape=(1, n_features)), # 1 time step
+            layers.Input(shape=(seq_length, n_features)), 
             # Using simplernn layer
             layers.SimpleRNN(params.get('units', 50), activation=params.get('activation', 'relu'), recurrent_dropout=params.get('recurrent_dropout', 0.0)),
             layers.Dense(1) # Output layer for regression
@@ -67,6 +95,9 @@ param_groups = {
         'epochs': [50, 100],
         'batch_size': [32, 64],
         'optimizer': ['adam', 'rmsprop']
-    }
+    },
+    'sequence_length': {
+        'seq_length': [3, 7, 14]
+    },
 }
 
