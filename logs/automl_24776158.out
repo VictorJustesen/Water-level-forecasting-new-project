@@ -1,0 +1,806 @@
+==========================================================
+Job Started on n-62-20-12
+Job ID: 24776158
+Working Directory: /zhome/44/a/187127/school/Water-level-forecasting-new-project
+Requested Cores: 4
+Allocated Hosts: n-62-20-12 n-62-20-12 n-62-20-12 n-62-20-12
+Queue: gpuv100
+Start Time: Wed Apr 23 23:41:45 CEST 2025
+==========================================================
+Loading required modules...
+Modules loaded:
+Activating Conda environment 'forecasting'...
+Conda environment: forecastinghpc
+Python path: /zhome/44/a/187127/anaconda3/envs/forecastinghpc/bin/python
+Working directory set to: /zhome/44/a/187127/school/Water-level-forecasting-new-project
+Running automl.py...
+2025-04-23 23:41:53.521572
+sucess
+                level  year  ...  sin_dayofyear  cos_dayofyear
+time                         ...                              
+2014-06-20  11.437010  2014  ...       0.198648      -0.980071
+2014-06-21  11.439094  2014  ...       0.181760      -0.983343
+2014-06-22  11.435438  2014  ...       0.164818      -0.986324
+2014-06-23  11.428292  2014  ...       0.147827      -0.989013
+2014-06-24  11.427969  2014  ...       0.130793      -0.991410
+
+[5 rows x 6 columns]
+running models:  ['linear_model', 'rf_model', 'xgb_model', 'fnn_model', 'rnn_model', 'cnn_model', 'rnnlstm_model', 'baseline_model']
+error metric:  mse
+Data after scaling:
+                level      year  ...  level_diff  level_pct_change
+time                             ...                              
+2015-06-20  11.448463 -1.698318  ...   -0.060853         -0.062797
+2015-06-21  11.433109 -1.698318  ...   -0.694854         -0.708170
+2015-06-22  11.435677 -1.698318  ...    0.109832          0.111100
+2015-06-23  11.443779 -1.698318  ...    0.358336          0.364315
+2015-06-24  11.430875 -1.698318  ...   -0.584854         -0.596440
+
+[5 rows x 11 columns]
+feature selection
+
+Performing feature selection for linear_model
+2025-04-23 23:42:01.329832
+Tested feature 'year': Mean mse = 0.026669837163875602
+Tested feature 'sin_month': Mean mse = 0.019513180206691058
+Tested feature 'cos_month': Mean mse = 0.0197109809671892
+Tested feature 'sin_dayofyear': Mean mse = 0.021780126117610026
+Tested feature 'cos_dayofyear': Mean mse = 0.017279311990645075
+Tested feature 'mean_30_lag': Mean mse = 0.016845591544246273
+Tested feature 'lag_30d': Mean mse = 0.016678083579852256
+Tested feature 'lag_365d': Mean mse = 0.021713779485873382
+Tested feature 'level_diff': Mean mse = 0.02447173495364859
+Tested feature 'level_pct_change': Mean mse = 0.02446651818933163
+Selected feature 'lag_30d' with improvement to mse = 0.016678083579852256
+Tested feature 'year': Mean mse = 0.018226954555767217
+Tested feature 'sin_month': Mean mse = 0.015918420819151305
+Tested feature 'cos_month': Mean mse = 0.013075991083568555
+Tested feature 'sin_dayofyear': Mean mse = 0.016626977620134407
+Tested feature 'cos_dayofyear': Mean mse = 0.012494096398638342
+Tested feature 'mean_30_lag': Mean mse = 0.016638123674552367
+Tested feature 'lag_365d': Mean mse = 0.01577290600172795
+Tested feature 'level_diff': Mean mse = 0.016484769949644925
+Tested feature 'level_pct_change': Mean mse = 0.016480588023442846
+Selected feature 'cos_dayofyear' with improvement to mse = 0.012494096398638342
+Tested feature 'year': Mean mse = 0.014036437412153548
+Tested feature 'sin_month': Mean mse = 0.012241831770965831
+Tested feature 'cos_month': Mean mse = 0.012502713390854679
+Tested feature 'sin_dayofyear': Mean mse = 0.012222353402153998
+Tested feature 'mean_30_lag': Mean mse = 0.012078664837645149
+Tested feature 'lag_365d': Mean mse = 0.012715999434155514
+Tested feature 'level_diff': Mean mse = 0.012394786685395363
+Tested feature 'level_pct_change': Mean mse = 0.012392228231826431
+Selected feature 'mean_30_lag' with improvement to mse = 0.012078664837645149
+Tested feature 'year': Mean mse = 0.013504749930460058
+Tested feature 'sin_month': Mean mse = 0.011961424544645872
+Tested feature 'cos_month': Mean mse = 0.012075097964803334
+Tested feature 'sin_dayofyear': Mean mse = 0.011942273599651205
+Tested feature 'lag_365d': Mean mse = 0.012251102647035978
+Tested feature 'level_diff': Mean mse = 0.011963243365344557
+Tested feature 'level_pct_change': Mean mse = 0.01196093087271291
+Selected feature 'sin_dayofyear' with improvement to mse = 0.011942273599651205
+Tested feature 'year': Mean mse = 0.01355399349317685
+Tested feature 'sin_month': Mean mse = 0.011950123581911155
+Tested feature 'cos_month': Mean mse = 0.011938008157370842
+Tested feature 'lag_365d': Mean mse = 0.012126891671420285
+Tested feature 'level_diff': Mean mse = 0.011826259191088928
+Tested feature 'level_pct_change': Mean mse = 0.011823917541761212
+Selected feature 'level_pct_change' with improvement to mse = 0.011823917541761212
+Tested feature 'year': Mean mse = 0.013438064619745612
+Tested feature 'sin_month': Mean mse = 0.011828107189967955
+Tested feature 'cos_month': Mean mse = 0.011829895250378607
+Tested feature 'lag_365d': Mean mse = 0.012006589175187269
+Tested feature 'level_diff': Mean mse = 0.011803708378131883
+Selected feature 'level_diff' with improvement to mse = 0.011803708378131883
+Tested feature 'year': Mean mse = 0.013396572675814336
+Tested feature 'sin_month': Mean mse = 0.01181100490989161
+Tested feature 'cos_month': Mean mse = 0.011808830634692237
+Tested feature 'lag_365d': Mean mse = 0.011987736152662987
+No further improvement, stopping feature selection.
+Selected features for 'linear_model': ['lag_30d', 'cos_dayofyear', 'mean_30_lag', 'sin_dayofyear', 'level_pct_change', 'level_diff']
+
+Performing feature selection for rf_model
+2025-04-23 23:42:04.169027
+Tested feature 'year': Mean mse = 0.01971500307445774
+Tested feature 'sin_month': Mean mse = 0.02106607740464973
+Tested feature 'cos_month': Mean mse = 0.020753473492553024
+Tested feature 'sin_dayofyear': Mean mse = 0.019522817875909437
+Tested feature 'cos_dayofyear': Mean mse = 0.01718715319769467
+Tested feature 'mean_30_lag': Mean mse = 0.021040169093885286
+Tested feature 'lag_30d': Mean mse = 0.01815890765448959
+Tested feature 'lag_365d': Mean mse = 0.021299130131399946
+Tested feature 'level_diff': Mean mse = 0.019074704314883607
+Tested feature 'level_pct_change': Mean mse = 0.020849380491716942
+Selected feature 'cos_dayofyear' with improvement to mse = 0.01718715319769467
+Tested feature 'year': Mean mse = 0.017685194636900294
+Tested feature 'sin_month': Mean mse = 0.01642616803199178
+Tested feature 'cos_month': Mean mse = 0.01641798136921857
+Tested feature 'sin_dayofyear': Mean mse = 0.016285916583513516
+Tested feature 'mean_30_lag': Mean mse = 0.015758390350472027
+Tested feature 'lag_30d': Mean mse = 0.01506018898278139
+Tested feature 'lag_365d': Mean mse = 0.016562361227909828
+Tested feature 'level_diff': Mean mse = 0.015002401663953351
+Tested feature 'level_pct_change': Mean mse = 0.015102792697101543
+Selected feature 'level_diff' with improvement to mse = 0.015002401663953351
+Tested feature 'year': Mean mse = 0.013096859196873858
+Tested feature 'sin_month': Mean mse = 0.0140938744853395
+Tested feature 'cos_month': Mean mse = 0.014069117641956511
+Tested feature 'sin_dayofyear': Mean mse = 0.014182211581479072
+Tested feature 'mean_30_lag': Mean mse = 0.01199237747804444
+Tested feature 'lag_30d': Mean mse = 0.01116295175504025
+Tested feature 'lag_365d': Mean mse = 0.013918144498508476
+Tested feature 'level_pct_change': Mean mse = 0.014713183005179412
+Selected feature 'lag_30d' with improvement to mse = 0.01116295175504025
+Tested feature 'year': Mean mse = 0.012704093186787942
+Tested feature 'sin_month': Mean mse = 0.011311335620398657
+Tested feature 'cos_month': Mean mse = 0.01155650371146058
+Tested feature 'sin_dayofyear': Mean mse = 0.011300771132349277
+Tested feature 'mean_30_lag': Mean mse = 0.0116086553126628
+Tested feature 'lag_365d': Mean mse = 0.011414762795585731
+Tested feature 'level_pct_change': Mean mse = 0.010895773520362933
+Selected feature 'level_pct_change' with improvement to mse = 0.010895773520362933
+Tested feature 'year': Mean mse = 0.012178848268435936
+Tested feature 'sin_month': Mean mse = 0.011420378217645024
+Tested feature 'cos_month': Mean mse = 0.011481734804594326
+Tested feature 'sin_dayofyear': Mean mse = 0.012065066749930187
+Tested feature 'mean_30_lag': Mean mse = 0.011356744651369188
+Tested feature 'lag_365d': Mean mse = 0.011594717536632989
+No further improvement, stopping feature selection.
+Selected features for 'rf_model': ['cos_dayofyear', 'level_diff', 'lag_30d', 'level_pct_change']
+
+Performing feature selection for xgb_model
+2025-04-23 23:44:25.898391
+Tested feature 'year': Mean mse = 0.01966693072269953
+Tested feature 'sin_month': Mean mse = 0.021027054560076676
+Tested feature 'cos_month': Mean mse = 0.02078384414401693
+Tested feature 'sin_dayofyear': Mean mse = 0.02113387798012377
+Tested feature 'cos_dayofyear': Mean mse = 0.018029559348269227
+Tested feature 'mean_30_lag': Mean mse = 0.018389230457191364
+Tested feature 'lag_30d': Mean mse = 0.01721781013667583
+Tested feature 'lag_365d': Mean mse = 0.02082327714890249
+Tested feature 'level_diff': Mean mse = 0.018834075674056816
+Tested feature 'level_pct_change': Mean mse = 0.019146059045304385
+Selected feature 'lag_30d' with improvement to mse = 0.01721781013667583
+Tested feature 'year': Mean mse = 0.020681409185121524
+Tested feature 'sin_month': Mean mse = 0.018742074035331936
+Tested feature 'cos_month': Mean mse = 0.01476665722159187
+Tested feature 'sin_dayofyear': Mean mse = 0.017859868422783767
+Tested feature 'cos_dayofyear': Mean mse = 0.015527504218333798
+Tested feature 'mean_30_lag': Mean mse = 0.018745781490118543
+Tested feature 'lag_365d': Mean mse = 0.018334377924326944
+Tested feature 'level_diff': Mean mse = 0.012901155122694808
+Tested feature 'level_pct_change': Mean mse = 0.012986160574490398
+Selected feature 'level_diff' with improvement to mse = 0.012901155122694808
+Tested feature 'year': Mean mse = 0.015270583873049685
+Tested feature 'sin_month': Mean mse = 0.014350695994520803
+Tested feature 'cos_month': Mean mse = 0.010845603122253649
+Tested feature 'sin_dayofyear': Mean mse = 0.01365039386397362
+Tested feature 'cos_dayofyear': Mean mse = 0.010563595630260313
+Tested feature 'mean_30_lag': Mean mse = 0.013279203438920473
+Tested feature 'lag_365d': Mean mse = 0.013323485884999212
+Tested feature 'level_pct_change': Mean mse = 0.012920438759696572
+Selected feature 'cos_dayofyear' with improvement to mse = 0.010563595630260313
+Tested feature 'year': Mean mse = 0.009679125753042212
+Tested feature 'sin_month': Mean mse = 0.010581649280567687
+Tested feature 'cos_month': Mean mse = 0.010754586265832498
+Tested feature 'sin_dayofyear': Mean mse = 0.01071895531530557
+Tested feature 'mean_30_lag': Mean mse = 0.010546187341207797
+Tested feature 'lag_365d': Mean mse = 0.010796223728343995
+Tested feature 'level_pct_change': Mean mse = 0.010255735153520674
+Selected feature 'year' with improvement to mse = 0.009679125753042212
+Tested feature 'sin_month': Mean mse = 0.01029045878231606
+Tested feature 'cos_month': Mean mse = 0.009682376527552545
+Tested feature 'sin_dayofyear': Mean mse = 0.009711235043429137
+Tested feature 'mean_30_lag': Mean mse = 0.00957171810333839
+Tested feature 'lag_365d': Mean mse = 0.01089494561647383
+Tested feature 'level_pct_change': Mean mse = 0.009653993480343686
+Selected feature 'mean_30_lag' with improvement to mse = 0.00957171810333839
+Tested feature 'sin_month': Mean mse = 0.010169704033741324
+Tested feature 'cos_month': Mean mse = 0.010212336768463542
+Tested feature 'sin_dayofyear': Mean mse = 0.009704288383456416
+Tested feature 'lag_365d': Mean mse = 0.01017593772665045
+Tested feature 'level_pct_change': Mean mse = 0.010063759598455324
+No further improvement, stopping feature selection.
+Selected features for 'xgb_model': ['lag_30d', 'level_diff', 'cos_dayofyear', 'year', 'mean_30_lag']
+
+Performing feature selection for fnn_model
+2025-04-23 23:44:43.657489
+Tested feature 'year': Mean mse = 0.04700370209760253
+Tested feature 'sin_month': Mean mse = 0.02469316439441164
+Tested feature 'cos_month': Mean mse = 0.02404249314793243
+Tested feature 'sin_dayofyear': Mean mse = 0.02359210899605072
+Tested feature 'cos_dayofyear': Mean mse = 0.018216158218220514
+Tested feature 'mean_30_lag': Mean mse = 0.20347067991955262
+Tested feature 'lag_30d': Mean mse = 0.025896323171870947
+Tested feature 'lag_365d': Mean mse = 0.02165013404670272
+Tested feature 'level_diff': Mean mse = 0.02126271474609952
+Tested feature 'level_pct_change': Mean mse = 0.020684675608734313
+Selected feature 'cos_dayofyear' with improvement to mse = 0.018216158218220514
+Tested feature 'year': Mean mse = 0.030293668189461435
+Tested feature 'sin_month': Mean mse = 0.07370986037843565
+Tested feature 'cos_month': Mean mse = 0.020602682961759062
+Tested feature 'sin_dayofyear': Mean mse = 0.015835130198359842
+Tested feature 'mean_30_lag': Mean mse = 0.07093473237863099
+Tested feature 'lag_30d': Mean mse = 0.019400511699948057
+Tested feature 'lag_365d': Mean mse = 0.015257639903893354
+Tested feature 'level_diff': Mean mse = 0.01768055352806273
+Tested feature 'level_pct_change': Mean mse = 0.01597719013594025
+Selected feature 'lag_365d' with improvement to mse = 0.015257639903893354
+Tested feature 'year': Mean mse = 0.026419387075596136
+Tested feature 'sin_month': Mean mse = 0.05798819675114216
+Tested feature 'cos_month': Mean mse = 0.018675976646385657
+Tested feature 'sin_dayofyear': Mean mse = 0.024515629664435715
+Tested feature 'mean_30_lag': Mean mse = 0.043331216492510836
+Tested feature 'lag_30d': Mean mse = 0.017929342321585176
+Tested feature 'level_diff': Mean mse = 0.01679657188272969
+Tested feature 'level_pct_change': Mean mse = 0.017094087266031652
+No further improvement, stopping feature selection.
+Selected features for 'fnn_model': ['cos_dayofyear', 'lag_365d']
+
+Performing feature selection for rnn_model
+2025-04-24 00:21:05.739405
+Tested feature 'year': Mean mse = 0.10402138927650059
+Tested feature 'sin_month': Mean mse = 0.03774950526642004
+Tested feature 'cos_month': Mean mse = 0.023180841660133077
+Tested feature 'sin_dayofyear': Mean mse = 0.030799440283935723
+Tested feature 'cos_dayofyear': Mean mse = 0.021066776283759008
+Tested feature 'mean_30_lag': Mean mse = 0.28649997112433495
+Tested feature 'lag_30d': Mean mse = 0.022096677101020666
+Tested feature 'lag_365d': Mean mse = 0.023452137772770644
+Tested feature 'level_diff': Mean mse = 0.028522990957533856
+Tested feature 'level_pct_change': Mean mse = 0.039721476380643
+Selected feature 'cos_dayofyear' with improvement to mse = 0.021066776283759008
+Tested feature 'year': Mean mse = 0.03837748561261252
+Tested feature 'sin_month': Mean mse = 0.029750658624786777
+Tested feature 'cos_month': Mean mse = 0.04224801261817412
+Tested feature 'sin_dayofyear': Mean mse = 0.029387441721047222
+Tested feature 'mean_30_lag': Mean mse = 0.1492492300309339
+Tested feature 'lag_30d': Mean mse = 0.03629986772672301
+Tested feature 'lag_365d': Mean mse = 0.02013997178708317
+Tested feature 'level_diff': Mean mse = 0.02075000400071184
+Tested feature 'level_pct_change': Mean mse = 0.02611171926064359
+Selected feature 'lag_365d' with improvement to mse = 0.02013997178708317
+Tested feature 'year': Mean mse = 0.023149647853197487
+Tested feature 'sin_month': Mean mse = 0.03820988791783359
+Tested feature 'cos_month': Mean mse = 0.03418309879107189
+Tested feature 'sin_dayofyear': Mean mse = 0.028172636831277322
+Tested feature 'mean_30_lag': Mean mse = 0.12765994753091375
+Tested feature 'lag_30d': Mean mse = 0.033165381636280994
+Tested feature 'level_diff': Mean mse = 0.0219175457753678
+Tested feature 'level_pct_change': Mean mse = 0.029191350503566308
+No further improvement, stopping feature selection.
+Selected features for 'rnn_model': ['cos_dayofyear', 'lag_365d']
+
+Performing feature selection for cnn_model
+2025-04-24 01:17:30.923172
+Tested feature 'year': Mean mse = 0.04437329573054432
+Tested feature 'sin_month': Mean mse = 0.020586829156663964
+Tested feature 'cos_month': Mean mse = 0.018862486448307892
+Tested feature 'sin_dayofyear': Mean mse = 0.021331231516448102
+Tested feature 'cos_dayofyear': Mean mse = 0.021636608357440832
+Tested feature 'mean_30_lag': Mean mse = 0.1344999161140519
+Tested feature 'lag_30d': Mean mse = 0.02080027790648124
+Tested feature 'lag_365d': Mean mse = 0.02125118523031725
+Tested feature 'level_diff': Mean mse = 0.02072448566459295
+Tested feature 'level_pct_change': Mean mse = 0.022875130250790777
+Selected feature 'cos_month' with improvement to mse = 0.018862486448307892
+Tested feature 'year': Mean mse = 0.026937803921232743
+Tested feature 'sin_month': Mean mse = 0.017648996999796007
+Tested feature 'sin_dayofyear': Mean mse = 0.03721511709732751
+Tested feature 'cos_dayofyear': Mean mse = 0.017412329154645925
+Tested feature 'mean_30_lag': Mean mse = 0.057448024313372266
+Tested feature 'lag_30d': Mean mse = 0.01841972472514158
+Tested feature 'lag_365d': Mean mse = 0.016887359533516447
+Tested feature 'level_diff': Mean mse = 0.018599806852478522
+Tested feature 'level_pct_change': Mean mse = 0.018704342987507686
+Selected feature 'lag_365d' with improvement to mse = 0.016887359533516447
+Tested feature 'year': Mean mse = 0.021289250843648157
+Tested feature 'sin_month': Mean mse = 0.018761988786862183
+Tested feature 'sin_dayofyear': Mean mse = 0.01947966492513677
+Tested feature 'cos_dayofyear': Mean mse = 0.01948489919800472
+Tested feature 'mean_30_lag': Mean mse = 0.01568337856970535
+Tested feature 'lag_30d': Mean mse = 0.018466416076369088
+Tested feature 'level_diff': Mean mse = 0.018628810204100257
+Tested feature 'level_pct_change': Mean mse = 0.021054944404970976
+Selected feature 'mean_30_lag' with improvement to mse = 0.01568337856970535
+Tested feature 'year': Mean mse = 0.013977888700480997
+Tested feature 'sin_month': Mean mse = 0.01658005497724514
+Tested feature 'sin_dayofyear': Mean mse = 0.014416104593897862
+Tested feature 'cos_dayofyear': Mean mse = 0.016544211158955668
+Tested feature 'lag_30d': Mean mse = 0.013946505596938033
+Tested feature 'level_diff': Mean mse = 0.017892998225500535
+Tested feature 'level_pct_change': Mean mse = 0.017325396580915916
+Selected feature 'lag_30d' with improvement to mse = 0.013946505596938033
+Tested feature 'year': Mean mse = 0.016923699896792568
+Tested feature 'sin_month': Mean mse = 0.0173406706329215
+Tested feature 'sin_dayofyear': Mean mse = 0.020637897268566633
+Tested feature 'cos_dayofyear': Mean mse = 0.01680561924779768
+Tested feature 'level_diff': Mean mse = 0.019778809636290137
+Tested feature 'level_pct_change': Mean mse = 0.015529542807607107
+No further improvement, stopping feature selection.
+Selected features for 'cnn_model': ['cos_month', 'lag_365d', 'mean_30_lag', 'lag_30d']
+
+Performing feature selection for rnnlstm_model
+2025-04-24 02:16:40.339811
+Tested feature 'year': Mean mse = 0.0312483098237455
+Tested feature 'sin_month': Mean mse = 0.020293849468369193
+Tested feature 'cos_month': Mean mse = 0.019371004900891095
+Tested feature 'sin_dayofyear': Mean mse = 0.02185205515537662
+Tested feature 'cos_dayofyear': Mean mse = 0.01631952672751753
+Tested feature 'mean_30_lag': Mean mse = 0.018434102569014777
+Tested feature 'lag_30d': Mean mse = 0.017230980958393365
+Tested feature 'lag_365d': Mean mse = 0.023657068454673212
+Tested feature 'level_diff': Mean mse = 0.024454196234499525
+Tested feature 'level_pct_change': Mean mse = 0.022769525742777092
+Selected feature 'cos_dayofyear' with improvement to mse = 0.01631952672751753
+Tested feature 'year': Mean mse = 0.01960761544669991
+Tested feature 'sin_month': Mean mse = 0.016824876418554503
+Tested feature 'cos_month': Mean mse = 0.015733774382382305
+Tested feature 'sin_dayofyear': Mean mse = 0.015340868313261181
+Tested feature 'mean_30_lag': Mean mse = 0.012137464945100663
+Tested feature 'lag_30d': Mean mse = 0.013072958108692991
+Tested feature 'lag_365d': Mean mse = 0.016907371529467304
+Tested feature 'level_diff': Mean mse = 0.015787070820286152
+Tested feature 'level_pct_change': Mean mse = 0.015003813952436109
+Selected feature 'mean_30_lag' with improvement to mse = 0.012137464945100663
+Tested feature 'year': Mean mse = 0.02303990406606046
+Tested feature 'sin_month': Mean mse = 0.012753929949708788
+Tested feature 'cos_month': Mean mse = 0.012846908368282608
+Tested feature 'sin_dayofyear': Mean mse = 0.015492366817938658
+Tested feature 'lag_30d': Mean mse = 0.013304119085347375
+Tested feature 'lag_365d': Mean mse = 0.013325428367946843
+Tested feature 'level_diff': Mean mse = 0.011278473625756059
+Tested feature 'level_pct_change': Mean mse = 0.011773265851135528
+Selected feature 'level_diff' with improvement to mse = 0.011278473625756059
+Tested feature 'year': Mean mse = 0.016862926307162098
+Tested feature 'sin_month': Mean mse = 0.013852009810482754
+Tested feature 'cos_month': Mean mse = 0.01180568724724393
+Tested feature 'sin_dayofyear': Mean mse = 0.013658625648452534
+Tested feature 'lag_30d': Mean mse = 0.011481583667315748
+Tested feature 'lag_365d': Mean mse = 0.009757011141673166
+Tested feature 'level_pct_change': Mean mse = 0.00952801039379862
+Selected feature 'level_pct_change' with improvement to mse = 0.00952801039379862
+Tested feature 'year': Mean mse = 0.01606141814836552
+Tested feature 'sin_month': Mean mse = 0.010762242156684759
+Tested feature 'cos_month': Mean mse = 0.00948085091993235
+Tested feature 'sin_dayofyear': Mean mse = 0.01277820050796449
+Tested feature 'lag_30d': Mean mse = 0.01213721548063184
+Tested feature 'lag_365d': Mean mse = 0.011705018742600352
+Selected feature 'cos_month' with improvement to mse = 0.00948085091993235
+Tested feature 'year': Mean mse = 0.015863608654979232
+Tested feature 'sin_month': Mean mse = 0.012143264758491595
+Tested feature 'sin_dayofyear': Mean mse = 0.013523110396704924
+Tested feature 'lag_30d': Mean mse = 0.01056805675329004
+Tested feature 'lag_365d': Mean mse = 0.010489155462330016
+No further improvement, stopping feature selection.
+Selected features for 'rnnlstm_model': ['cos_dayofyear', 'mean_30_lag', 'level_diff', 'level_pct_change', 'cos_month']
+
+Performing feature selection for baseline_model
+2025-04-24 04:24:17.362989
+Tested feature 'year': Mean mse = 0.01047261869754859
+Tested feature 'sin_month': Mean mse = 0.01047261869754859
+Tested feature 'cos_month': Mean mse = 0.01047261869754859
+Tested feature 'sin_dayofyear': Mean mse = 0.01047261869754859
+Tested feature 'cos_dayofyear': Mean mse = 0.01047261869754859
+Tested feature 'mean_30_lag': Mean mse = 0.01047261869754859
+Tested feature 'lag_30d': Mean mse = 0.01047261869754859
+Tested feature 'lag_365d': Mean mse = 0.01047261869754859
+Tested feature 'level_diff': Mean mse = 0.01047261869754859
+Tested feature 'level_pct_change': Mean mse = 0.01047261869754859
+Selected feature 'year' with improvement to mse = 0.01047261869754859
+Tested feature 'sin_month': Mean mse = 0.01047261869754859
+Tested feature 'cos_month': Mean mse = 0.01047261869754859
+Tested feature 'sin_dayofyear': Mean mse = 0.01047261869754859
+Tested feature 'cos_dayofyear': Mean mse = 0.01047261869754859
+Tested feature 'mean_30_lag': Mean mse = 0.01047261869754859
+Tested feature 'lag_30d': Mean mse = 0.01047261869754859
+Tested feature 'lag_365d': Mean mse = 0.01047261869754859
+Tested feature 'level_diff': Mean mse = 0.01047261869754859
+Tested feature 'level_pct_change': Mean mse = 0.01047261869754859
+No further improvement, stopping feature selection.
+Selected features for 'baseline_model': ['year']
+
+Starting hyperparameter tuning for 'linear_model'
+2025-04-24 04:24:17.810649
+Optimizing parameter group 'group1' for 'linear_model'
+Tested params {'fit_intercept': True}: Mean mse = 0.011803708378131883
+New best params for 'linear_model': {'fit_intercept': True} with Mean mse = 0.011803708378131883
+Tested params {'fit_intercept': False}: Mean mse = 153.4329542721902
+Best parameters for 'linear_model': {'fit_intercept': True}
+Best mean error for 'linear_model': 0.011803708378131883
+
+Starting hyperparameter tuning for 'rf_model'
+2025-04-24 04:24:17.929558
+Optimizing parameter group 'group1' for 'rf_model'
+Tested params {'n_estimators': 25, 'max_depth': None, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010842793983700737
+New best params for 'rf_model': {'n_estimators': 25, 'max_depth': None, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None} with Mean mse = 0.010842793983700737
+Tested params {'n_estimators': 50, 'max_depth': None, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010976164495886362
+Tested params {'n_estimators': 100, 'max_depth': None, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010973652367984763
+Tested params {'n_estimators': 200, 'max_depth': None, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010946414104126584
+Tested params {'n_estimators': 25, 'max_depth': 5, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010718625987632525
+New best params for 'rf_model': {'n_estimators': 25, 'max_depth': 5, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None} with Mean mse = 0.010718625987632525
+Tested params {'n_estimators': 50, 'max_depth': 5, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010817990587272269
+Tested params {'n_estimators': 100, 'max_depth': 5, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.01089235400329155
+Tested params {'n_estimators': 200, 'max_depth': 5, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010749440679967904
+Tested params {'n_estimators': 25, 'max_depth': 10, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.011105453471496756
+Tested params {'n_estimators': 50, 'max_depth': 10, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.01096565868953688
+Tested params {'n_estimators': 100, 'max_depth': 10, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010934398668796502
+Tested params {'n_estimators': 200, 'max_depth': 10, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.011000918856514545
+Tested params {'n_estimators': 25, 'max_depth': 20, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.0108796118568425
+Tested params {'n_estimators': 50, 'max_depth': 20, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.011014260380232005
+Tested params {'n_estimators': 100, 'max_depth': 20, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010725629032012997
+Tested params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010957589732307994
+Tested params {'n_estimators': 25, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010820782882963025
+Tested params {'n_estimators': 50, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.011076430728927873
+Tested params {'n_estimators': 100, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.011059760208316132
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010694446872954427
+New best params for 'rf_model': {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None} with Mean mse = 0.010694446872954427
+Optimizing parameter group 'group2' for 'rf_model'
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': 'sqrt'}: Mean mse = 0.010407250582312705
+New best params for 'rf_model': {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': 'sqrt'} with Mean mse = 0.010407250582312705
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 5, 'min_samples_leaf': 1, 'max_features': 'sqrt'}: Mean mse = 0.01034861536977589
+New best params for 'rf_model': {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 5, 'min_samples_leaf': 1, 'max_features': 'sqrt'} with Mean mse = 0.01034861536977589
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 2, 'max_features': 'sqrt'}: Mean mse = 0.010359931913942275
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 5, 'min_samples_leaf': 2, 'max_features': 'sqrt'}: Mean mse = 0.010323649012357761
+New best params for 'rf_model': {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 5, 'min_samples_leaf': 2, 'max_features': 'sqrt'} with Mean mse = 0.010323649012357761
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 3, 'max_features': 'sqrt'}: Mean mse = 0.010276528604172878
+New best params for 'rf_model': {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 3, 'max_features': 'sqrt'} with Mean mse = 0.010276528604172878
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 5, 'min_samples_leaf': 3, 'max_features': 'sqrt'}: Mean mse = 0.01027791743542967
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': 'log2'}: Mean mse = 0.010302855116130712
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 5, 'min_samples_leaf': 1, 'max_features': 'log2'}: Mean mse = 0.010326079893664205
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 2, 'max_features': 'log2'}: Mean mse = 0.010368152523217414
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 5, 'min_samples_leaf': 2, 'max_features': 'log2'}: Mean mse = 0.01029545886023736
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 3, 'max_features': 'log2'}: Mean mse = 0.010203241665659194
+New best params for 'rf_model': {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 3, 'max_features': 'log2'} with Mean mse = 0.010203241665659194
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 5, 'min_samples_leaf': 3, 'max_features': 'log2'}: Mean mse = 0.010297429097562623
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010976441016833193
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 5, 'min_samples_leaf': 1, 'max_features': None}: Mean mse = 0.010680943034733601
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 2, 'max_features': None}: Mean mse = 0.01075842998661717
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 5, 'min_samples_leaf': 2, 'max_features': None}: Mean mse = 0.010758923758221413
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 3, 'max_features': None}: Mean mse = 0.010716467340854127
+Tested params {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 5, 'min_samples_leaf': 3, 'max_features': None}: Mean mse = 0.010819904700574307
+Best parameters for 'rf_model': {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 3, 'max_features': 'log2'}
+Best mean error for 'rf_model': 0.010203241665659194
+
+Starting hyperparameter tuning for 'xgb_model'
+2025-04-24 04:34:03.612781
+Optimizing parameter group 'group1' for 'xgb_model'
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.1, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.00957171810333839
+New best params for 'xgb_model': {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.1, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1} with Mean mse = 0.00957171810333839
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 200, 'max_depth': 3, 'learning_rate': 0.1, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010047100937347082
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 500, 'max_depth': 3, 'learning_rate': 0.1, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010749783721323885
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 5, 'learning_rate': 0.1, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010015585066037497
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 200, 'max_depth': 5, 'learning_rate': 0.1, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010551581163938941
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 500, 'max_depth': 5, 'learning_rate': 0.1, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.011053421852623497
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 7, 'learning_rate': 0.1, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010588058670717911
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 200, 'max_depth': 7, 'learning_rate': 0.1, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010638330193844815
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 500, 'max_depth': 7, 'learning_rate': 0.1, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.01067666562153146
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.008977355347017556
+New best params for 'xgb_model': {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1} with Mean mse = 0.008977355347017556
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 200, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.009467038677924162
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 500, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010362033807202091
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 5, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.009703479394590705
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 200, 'max_depth': 5, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.00984451552009937
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 500, 'max_depth': 5, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010823929047562004
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 7, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.01060314931810825
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 200, 'max_depth': 7, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.01088527596302919
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 500, 'max_depth': 7, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010955544520739165
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.01, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.012483124509968769
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 200, 'max_depth': 3, 'learning_rate': 0.01, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010102470588519376
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 500, 'max_depth': 3, 'learning_rate': 0.01, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.009069551026210093
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 5, 'learning_rate': 0.01, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010829232647732672
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 200, 'max_depth': 5, 'learning_rate': 0.01, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.00947444189502423
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 500, 'max_depth': 5, 'learning_rate': 0.01, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.009682236991422516
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 7, 'learning_rate': 0.01, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.011321395265944318
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 200, 'max_depth': 7, 'learning_rate': 0.01, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010148589002421556
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 500, 'max_depth': 7, 'learning_rate': 0.01, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.010431079045956903
+Optimizing parameter group 'group2' for 'xgb_model'
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.008977355347017556
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 3, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.009028510886099347
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 5, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.009096203804420213
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0.2, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.009700841382404674
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0.2, 'min_child_weight': 3, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.009700841382404674
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0.2, 'min_child_weight': 5, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.009722353806717682
+Optimizing parameter group 'group3' for 'xgb_model'
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 0.6, 'subsample': 0.6, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.009775315605103542
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 0.6, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.01015940143159817
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 0.6, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.009462866016412498
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.008977355347017556
+Optimizing parameter group 'group4' for 'xgb_model'
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}: Mean mse = 0.008977355347017556
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1.5}: Mean mse = 0.009141124335353424
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 1, 'reg_lambda': 1}: Mean mse = 0.008992205912303368
+Tested params {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 1, 'reg_lambda': 1.5}: Mean mse = 0.009039921972183259
+Best parameters for 'xgb_model': {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}
+Best mean error for 'xgb_model': 0.008977355347017556
+
+Starting hyperparameter tuning for 'fnn_model'
+2025-04-24 04:35:29.610157
+Optimizing parameter group 'dropout_rates' for 'fnn_model'
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.01747015592316951
+New best params for 'fnn_model': {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0} with Mean mse = 0.01747015592316951
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.1}: Mean mse = 0.04810317664060659
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.2}: Mean mse = 0.06883949027713819
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.1, 'dropout2': 0.0}: Mean mse = 0.03784218622969475
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.1, 'dropout2': 0.1}: Mean mse = 0.03645020940333355
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.1, 'dropout2': 0.2}: Mean mse = 0.07253980160243403
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.2, 'dropout2': 0.0}: Mean mse = 0.02271488618398175
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.2, 'dropout2': 0.1}: Mean mse = 0.07199214075818955
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.2, 'dropout2': 0.2}: Mean mse = 0.07606482688948817
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.3, 'dropout2': 0.0}: Mean mse = 0.019422164709786534
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.3, 'dropout2': 0.1}: Mean mse = 0.06270408044702142
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.3, 'dropout2': 0.2}: Mean mse = 0.09615943046263122
+Optimizing parameter group 'group1_structure' for 'fnn_model'
+Tested params {'units_layer1': 32, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.018935193879021716
+Tested params {'units_layer1': 32, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.018282390664354446
+Tested params {'units_layer1': 32, 'activation_layer1': 'relu', 'units_layer2': 64, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.017630447685441794
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.01524864087960478
+New best params for 'fnn_model': {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0} with Mean mse = 0.01524864087960478
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.017990707587639362
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 64, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.015779272090295265
+Tested params {'units_layer1': 128, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.01791162792716557
+Tested params {'units_layer1': 128, 'activation_layer1': 'relu', 'units_layer2': 32, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.01626431206469419
+Tested params {'units_layer1': 128, 'activation_layer1': 'relu', 'units_layer2': 64, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.01655443792275719
+Optimizing parameter group 'group2_activation' for 'fnn_model'
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.015476945734587723
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.02451984548113484
+Tested params {'units_layer1': 64, 'activation_layer1': 'tanh', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.030875619898470128
+Tested params {'units_layer1': 64, 'activation_layer1': 'tanh', 'units_layer2': 16, 'activation_layer2': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.017872159124257533
+Optimizing parameter group 'group3_training' for 'fnn_model'
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.016718997259568023
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 100, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.01782593158695853
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 64, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.024099793832017276
+Tested params {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 100, 'batch_size': 64, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}: Mean mse = 0.017950363273828044
+Best parameters for 'fnn_model': {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}
+Best mean error for 'fnn_model': 0.01524864087960478
+
+Starting hyperparameter tuning for 'rnn_model'
+2025-04-24 05:16:56.587877
+Optimizing parameter group 'dropout' for 'rnn_model'
+Tested params {'units': 50, 'activation': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7}: Mean mse = 0.02024832361503602
+New best params for 'rnn_model': {'units': 50, 'activation': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7} with Mean mse = 0.02024832361503602
+Tested params {'units': 50, 'activation': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 7}: Mean mse = 0.04971468798356396
+Tested params {'units': 50, 'activation': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.2, 'seq_length': 7}: Mean mse = 0.023571318425335778
+Tested params {'units': 50, 'activation': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.3, 'seq_length': 7}: Mean mse = 0.0351273353225016
+Optimizing parameter group 'group1_structure' for 'rnn_model'
+Tested params {'units': 32, 'activation': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7}: Mean mse = 0.020712227913093042
+Tested params {'units': 50, 'activation': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7}: Mean mse = 0.023487951945643903
+Tested params {'units': 100, 'activation': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7}: Mean mse = 0.029396040837454097
+Optimizing parameter group 'group2_activation' for 'rnn_model'
+Tested params {'units': 50, 'activation': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7}: Mean mse = 0.03928795291807056
+Tested params {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7}: Mean mse = 0.0168991386062537
+New best params for 'rnn_model': {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7} with Mean mse = 0.0168991386062537
+Optimizing parameter group 'group3_training' for 'rnn_model'
+Tested params {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7}: Mean mse = 0.01715464690262137
+Tested params {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 100, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7}: Mean mse = 0.017014001394174257
+Tested params {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 64, 'dropout': 0.0, 'seq_length': 7}: Mean mse = 0.016616817722792623
+New best params for 'rnn_model': {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 64, 'dropout': 0.0, 'seq_length': 7} with Mean mse = 0.016616817722792623
+Tested params {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 100, 'batch_size': 64, 'dropout': 0.0, 'seq_length': 7}: Mean mse = 0.017053072398707247
+Optimizing parameter group 'sequence_length' for 'rnn_model'
+Tested params {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 64, 'dropout': 0.0, 'seq_length': 3}: Mean mse = 0.019370882833655734
+Tested params {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 64, 'dropout': 0.0, 'seq_length': 7}: Mean mse = 0.01738743113289048
+Tested params {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 64, 'dropout': 0.0, 'seq_length': 14}: Mean mse = 0.01894934333555471
+Best parameters for 'rnn_model': {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 64, 'dropout': 0.0, 'seq_length': 7}
+Best mean error for 'rnn_model': 0.016616817722792623
+
+Starting hyperparameter tuning for 'cnn_model'
+2025-04-24 05:50:25.798847
+Optimizing parameter group 'group1_cnn_structure' for 'cnn_model'
+Tested params {'filters': 32, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.018608220592333514
+New best params for 'cnn_model': {'filters': 32, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0} with Mean mse = 0.018608220592333514
+Tested params {'filters': 32, 'kernel_size': 3, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.01841866088274587
+New best params for 'cnn_model': {'filters': 32, 'kernel_size': 3, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0} with Mean mse = 0.01841866088274587
+Tested params {'filters': 32, 'kernel_size': 5, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.035472091273553566
+Tested params {'filters': 64, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.016229469736963088
+New best params for 'cnn_model': {'filters': 64, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0} with Mean mse = 0.016229469736963088
+Tested params {'filters': 64, 'kernel_size': 3, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.01636283031666689
+Tested params {'filters': 64, 'kernel_size': 5, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.043770148249565106
+Tested params {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.013686124218956534
+New best params for 'cnn_model': {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0} with Mean mse = 0.013686124218956534
+Tested params {'filters': 128, 'kernel_size': 3, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.01857198796250006
+Tested params {'filters': 128, 'kernel_size': 5, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.018630880963934147
+Optimizing parameter group 'group2_dense_structure' for 'cnn_model'
+Tested params {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 32, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.01666324179635838
+Tested params {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.015130829394887968
+Tested params {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 100, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.01589433193826361
+Optimizing parameter group 'group3_activation' for 'cnn_model'
+Tested params {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.013210594975087793
+New best params for 'cnn_model': {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0} with Mean mse = 0.013210594975087793
+Tested params {'filters': 128, 'kernel_size': 2, 'activation': 'tanh', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.024043058167120334
+Optimizing parameter group 'group4_training' for 'cnn_model'
+Tested params {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.014217556267928212
+Tested params {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 100, 'batch_size': 32, 'verbose': 0}: Mean mse = 0.016908709324363946
+Tested params {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 64, 'verbose': 0}: Mean mse = 0.01820462295048449
+Tested params {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 100, 'batch_size': 64, 'verbose': 0}: Mean mse = 0.01403898847495335
+Best parameters for 'cnn_model': {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}
+Best mean error for 'cnn_model': 0.013210594975087793
+
+Starting hyperparameter tuning for 'rnnlstm_model'
+2025-04-24 06:18:25.079898
+Optimizing parameter group 'dropout' for 'rnnlstm_model'
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.007858810911964175
+New best params for 'rnnlstm_model': {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.0, 'seq_length': 7, 'verbose': 0} with Mean mse = 0.007858810911964175
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.0075822951337874
+New best params for 'rnnlstm_model': {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0} with Mean mse = 0.0075822951337874
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.2, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.009987535489339583
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.3, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.009577020860402298
+Optimizing parameter group 'group1_structure' for 'rnnlstm_model'
+Tested params {'units': 32, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.013142235721958499
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.008888583073020234
+Tested params {'units': 100, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.008532337423481534
+Optimizing parameter group 'group3_training' for 'rnnlstm_model'
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.011107478868332302
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 100, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.007758003714731423
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 64, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.011736144143632733
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 100, 'batch_size': 64, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.009211993259583499
+Optimizing parameter group 'sequence_length' for 'rnnlstm_model'
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 3, 'verbose': 0}: Mean mse = 0.011229215394574587
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0}: Mean mse = 0.010465682941326633
+Tested params {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 14, 'verbose': 0}: Mean mse = 0.009682750292713375
+Best parameters for 'rnnlstm_model': {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0}
+Best mean error for 'rnnlstm_model': 0.0075822951337874
+Model: linear_model
+  Selected Features: ['lag_30d', 'cos_dayofyear', 'mean_30_lag', 'sin_dayofyear', 'level_pct_change', 'level_diff']
+  Best Parameters: {'fit_intercept': True}
+  Best Error: 0.011803708378131883
+Model: rf_model
+  Selected Features: ['cos_dayofyear', 'level_diff', 'lag_30d', 'level_pct_change']
+  Best Parameters: {'n_estimators': 200, 'max_depth': 40, 'min_samples_split': 2, 'min_samples_leaf': 3, 'max_features': 'log2'}
+  Best Error: 0.010203241665659194
+Model: xgb_model
+  Selected Features: ['lag_30d', 'level_diff', 'cos_dayofyear', 'year', 'mean_30_lag']
+  Best Parameters: {'objective': 'reg:squarederror', 'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.05, 'gamma': 0, 'min_child_weight': 1, 'colsample_bytree': 1.0, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1}
+  Best Error: 0.008977355347017556
+Model: fnn_model
+  Selected Features: ['cos_dayofyear', 'lag_365d']
+  Best Parameters: {'units_layer1': 64, 'activation_layer1': 'relu', 'units_layer2': 16, 'activation_layer2': 'relu', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0, 'dropout1': 0.0, 'dropout2': 0.0}
+  Best Error: 0.01524864087960478
+Model: rnn_model
+  Selected Features: ['cos_dayofyear', 'lag_365d']
+  Best Parameters: {'units': 50, 'activation': 'tanh', 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 64, 'dropout': 0.0, 'seq_length': 7}
+  Best Error: 0.016616817722792623
+Model: cnn_model
+  Selected Features: ['cos_month', 'lag_365d', 'mean_30_lag', 'lag_30d']
+  Best Parameters: {'filters': 128, 'kernel_size': 2, 'activation': 'relu', 'pool_size': 2, 'dense_units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'verbose': 0}
+  Best Error: 0.013210594975087793
+Model: rnnlstm_model
+  Selected Features: ['cos_dayofyear', 'mean_30_lag', 'level_diff', 'level_pct_change', 'cos_month']
+  Best Parameters: {'units': 50, 'optimizer': 'adam', 'loss': 'mse', 'epochs': 50, 'batch_size': 32, 'dropout': 0.1, 'seq_length': 7, 'verbose': 0}
+  Best Error: 0.0075822951337874
+
+Evaluating final model for 'linear_model'
+Final Mean mse for 'linear_model': 0.006704889923921547
+
+Evaluating final model for 'rf_model'
+Final Mean mse for 'rf_model': 0.008446058406029218
+
+Evaluating final model for 'xgb_model'
+Final Mean mse for 'xgb_model': 0.005846722595118179
+
+Evaluating final model for 'fnn_model'
+Final Mean mse for 'fnn_model': 0.013750143145522524
+
+Evaluating final model for 'rnn_model'
+Final Mean mse for 'rnn_model': 0.013144938369842821
+
+Evaluating final model for 'cnn_model'
+Final Mean mse for 'cnn_model': 0.014306460460910364
+
+Evaluating final model for 'rnnlstm_model'
+Final Mean mse for 'rnnlstm_model': 0.006296174185869619
+
+Evaluating final model for 'baseline_model'
+Final Mean mse for 'baseline_model': 132.88809184785126
+
+Model Performance Comparison:
+Model: linear_model, Mean mse: 0.006704889923921547
+Model: rf_model, Mean mse: 0.008446058406029218
+Model: xgb_model, Mean mse: 0.005846722595118179
+Model: fnn_model, Mean mse: 0.013750143145522524
+Model: rnn_model, Mean mse: 0.013144938369842821
+Model: cnn_model, Mean mse: 0.014306460460910364
+Model: rnnlstm_model, Mean mse: 0.006296174185869619
+Model: baseline_model, Mean mse: 132.88809184785126
+
+Best Model: xgb_model with Mean mse: 0.005846722595118179
+Baseline Model Mean mse: 132.88809184785126
+The best model 'xgb_model' outperforms the baseline.
+2025-04-24 07:10:26.715363
+Python script finished successfully.
+==========================================================
+Job Finished: Thu Apr 24 07:15:25 CEST 2025
+==========================================================
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24776158: <AutoML_WaterLevel> in cluster <dcc> Done
+
+Job <AutoML_WaterLevel> was submitted from host <hpclogin1> by user <s224296> in cluster <dcc> at Wed Apr 23 23:41:09 2025
+Job was executed on host(s) <4*n-62-20-12>, in queue <gpuv100>, as user <s224296> in cluster <dcc> at Wed Apr 23 23:41:41 2025
+</zhome/44/a/187127> was used as the home directory.
+</zhome/44/a/187127/school/Water-level-forecasting-new-project> was used as the working directory.
+Started at Wed Apr 23 23:41:41 2025
+Terminated at Thu Apr 24 07:15:25 2025
+Results reported at Thu Apr 24 07:15:25 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+# LSF Batch Job Script for running automl.py
+
+### General LSF options ###
+
+# -- Specify the queue --
+# Use a GPU queue appropriate for your models (e.g., gpuv100 or gpua100)
+# Remember A100 requires code compiled with CUDA >= 11.0
+#BSUB -q gpuv100
+
+# -- Set the job Name --
+#BSUB -J AutoML_WaterLevel
+
+# -- Ask for number of cores (CPU slots) --
+# Adjust based on data loading/preprocessing needs. 8 is a reasonable start.
+#BSUB -n 4
+
+# -- Request GPU resources --
+# Request 1 GPU in exclusive process mode.
+#BSUB -gpu "num=1:mode=exclusive_process"
+
+# -- Specify that all cores/GPU must be on the same host/node --
+#BSUB -R "span[hosts=1]"
+
+# -- Specify memory requested PER CORE/SLOT --
+# Example: 8GB RAM per core (total 64GB). ADJUST BASED ON YOUR NEEDS!
+#BSUB -R "rusage[mem=8GB]"
+
+# -- Specify memory limit PER CORE/SLOT (Job killed if exceeded) --
+# Example: 10GB per core (total 80GB limit). ADJUST BASED ON YOUR NEEDS!
+#BSUB -M 9GB
+
+# -- Set walltime limit: hh:mm --
+# Max 24:00 for GPU queues. START SHORT (e.g., 1:00) FOR TESTING!
+# Adjust based on expected runtime for the full job.
+#BSUB -W 10:00
+
+# -- Specify output and error files (%J expands to Job ID) --
+# We'll create the 'logs' directory below.
+#BSUB -o logs/automl_%J.out
+#BSUB -e logs/automl_%J.err
+
+# -- Email notifications (Optional) --
+# Uncomment and set your DTU email if desired
+##BSUB -u s224296@dtu.dk  # Use your actual email
+# Send email on job start (-B) and job end/failure (-N)
+##BSUB -B
+##BSUB -N
+
+### End of LSF options ###
+
+(... more ...)
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   47454.00 sec.
+    Max Memory :                                 30942 MB
+    Average Memory :                             16361.82 MB
+    Total Requested Memory :                     32768.00 MB
+    Delta Memory :                               1826.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                498
+    Run time :                                   27224 sec.
+    Turnaround time :                            27256 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <logs/automl_24776158.err> for stderr output of this job.
+

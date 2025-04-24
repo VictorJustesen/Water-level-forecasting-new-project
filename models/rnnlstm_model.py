@@ -6,18 +6,7 @@ from .create_sequences import create_sequences
 
 def rnnlstm_model(X_train, y_train, X_test, params=None):
    
-    if params is None:
-        params = {
-            'units': 50,
-            'activation': 'relu',
-            'optimizer': 'adam',
-            'loss': 'mse',
-            'epochs': 50,
-            'batch_size': 32,
-            'dropout':0,
-            'seq_length': 7  # Default sequence length
-
-        }
+   
 
     # Ensure numpy arrays
     X_train = X_train.values if isinstance(X_train, (pd.DataFrame, pd.Series)) else X_train
@@ -58,22 +47,21 @@ def rnnlstm_model(X_train, y_train, X_test, params=None):
 
     model = keras.Sequential(
         [
-        layers.Input(shape=(seq_length, n_features)),  # (sequence_length, features)
-            # Using LSTM layer
-            layers.LSTM(params.get('units', 50),dropout=params.get('dropout', 0)),
-            layers.Dense(1) # Output layer for regression
+            layers.Input(shape=(seq_length, n_features)),
+            layers.LSTM(params['units'], dropout=params['dropout']),
+            layers.Dense(1)
         ]
     )
 
-    model.compile(optimizer=params.get('optimizer', 'adam'),
-                  loss=params.get('loss', 'mse'))
+    model.compile(optimizer=params['optimizer'],
+                  loss=params['loss'])
 
     model.fit(X_train_seq, y_train_seq,
-              epochs=params.get('epochs', 50),
-              batch_size=params.get('batch_size', 32),
+              epochs=params['epochs'],
+              batch_size=params['batch_size'],
               verbose=0)
 
-    y_pred = model.predict(X_test_seq)
+    y_pred = model.predict(X_test_seq,verbose=0)
     
     return y_pred.flatten()
 
@@ -95,3 +83,14 @@ param_groups = {
     },
 }
 
+
+default_params = {
+    'units': 50,
+    'optimizer': 'adam',
+    'loss': 'mse',
+    'epochs': 50,
+    'batch_size': 32,
+    'dropout': 0.0,
+    'seq_length': 7,
+    'verbose': 0
+}

@@ -5,13 +5,7 @@ import pandas as pd
 
 def xgb_model(X_train, y_train, X_test, params=None):
     
-    if params is None:
-        params = {
-            'objective': 'reg:squarederror',
-            'n_estimators': 200,
-            'max_depth': 3,
-            'learning_rate': 0.1
-        }
+    
 
     X_train = X_train.values if isinstance(X_train, pd.DataFrame) else X_train
     y_train = y_train.values if isinstance(y_train, pd.Series) else y_train
@@ -47,3 +41,16 @@ param_groups = {
     }
 }
 
+default_params = {
+    'objective': 'reg:squarederror',
+    'n_estimators': 100,
+    'max_depth': 3,
+    'learning_rate': 0.1,
+    'gamma': 0,
+    'min_child_weight': 1,
+    'colsample_bytree': 1.0,
+    'subsample': 1.0,
+    'reg_alpha': 0,
+    'reg_lambda': 1,
+  
+}

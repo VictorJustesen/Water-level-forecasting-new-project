@@ -13,9 +13,11 @@ import seaborn as sns
 import datetime
 #settings could be done as arguments
 mode="multiple" #single day, range recursive?
-n_splits=10 #number of splits 
+n_splits=15 #number of splits 
 prediction_length=30# how long ahead in the future we predict 
 gap=45 #gap between splits
+metric="mse"
+
 
 print(datetime.datetime.now())
 try:
@@ -29,17 +31,18 @@ except Exception as e:
 #models, you can out comment
 models = [
     'linear_model',
-    #'rf_model',
-    #'xgb_model',
-    #'fnn_model',
+    'rf_model',
+    'xgb_model',
+    'fnn_model',
     'rnn_model',
-    #'cnn_model',
+    'cnn_model',
     'rnnlstm_model',
     'baseline_model',
 ]
 
 imported_models = {}
 model_params_groups = {}
+default_params= {}
 # get attributes in maps
 for model_name in models:
 
@@ -47,10 +50,10 @@ for model_name in models:
     module = importlib.import_module(module_path) 
     imported_models[model_name] = getattr(module, model_name)
     model_params_groups[model_name] = getattr(module, 'param_groups')
-
+    default_params[model_name]  = getattr(module, 'default_params') 
 print("running models: ", models)
 #needs to also be changed in some models 
-metric="mse"
+
 def error_metric(y_true, y_pred):
         if metric=="r2":
             return r2_score(y_true, y_pred)
@@ -232,7 +235,7 @@ for model_name in models:
                 try:
                     # Handle different modes for prediction
                     if mode == "multiple":
-                        y_pred = model_func(X_train, y_train, X_val, params={})
+                        y_pred = model_func(X_train, y_train, X_val, params=default_params[model_name])
                     elif mode == "single":
                         # For single mode, we only care about the last prediction
                         y_pred = model_func(X_train, y_train, X_val.iloc[-1:], params={})
@@ -279,18 +282,16 @@ for model_name in models:
     model_func = imported_models[model_name]
     param_groups = model_params_groups[model_name]
     selected_features = selected_features_dict.get(model_name, ['level'])
-    
+    best_params = default_params[model_name]
     best_error = float('inf')
-    best_params = {}
     
     for group_name, group_params in param_groups.items():
         print(f"Optimizing parameter group '{group_name}' for '{model_name}'")
         param_grid = list(ParameterGrid(group_params))
-        
+
         for params in param_grid:
             current_params = best_params.copy()
             current_params.update(params)
-            
             errors = []
             for train_idx, val_idx, test_idx in split():
                 train_df = df.iloc[train_idx]
@@ -325,7 +326,7 @@ for model_name in models:
                 
             mean_error = np.mean(errors)
             
-            print(f"Tested params {params}: Mean {metric} = {mean_error}")
+            print(f"Tested params {current_params}: Mean {metric} = {mean_error}")
             
             if mean_error < best_error:
                 best_error = mean_error

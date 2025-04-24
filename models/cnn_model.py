@@ -5,19 +5,7 @@ from tensorflow.keras import layers
 
 def cnn_model(X_train, y_train, X_test, params=None):
   
-    if params is None:
-        params = {
-            'filters': 64,
-            'kernel_size': 2, # Kernel size must be <= n_features if using 'valid' padding
-            'activation': 'relu',
-            'pool_size': 2,
-            'dense_units': 50,
-            'optimizer': 'adam',
-            'loss': 'mse',
-            'epochs': 50,
-            'batch_size': 32,
-            'verbose': 0
-        }
+ 
 
     # Ensure numpy arrays
     X_train = X_train.values if isinstance(X_train, (pd.DataFrame, pd.Series)) else X_train
@@ -45,40 +33,34 @@ def cnn_model(X_train, y_train, X_test, params=None):
 
 
     # Adjust kernel_size if it's larger than the sequence length (n_features here)
-    current_kernel_size = min(params.get('kernel_size', 2), n_features)
-    if current_kernel_size <= 0: current_kernel_size = 1 # Ensure kernel size is at least 1
+    current_kernel_size = min(params['kernel_size'], n_features)
+    if current_kernel_size <= 0: current_kernel_size = 1
 
-
-    # Adjust pool_size if pooling is invalid
-    # Calculate output size after convolution (assuming 'valid' padding)
     conv_output_size = n_features - current_kernel_size + 1
-    current_pool_size = params.get('pool_size', 2)
-    if conv_output_size < current_pool_size or conv_output_size <= 0 :
-        current_pool_size = 1 # Disable pooling if output is too small
-    elif current_pool_size <=0:
-         current_pool_size = 1 # Ensure pool size is positive
-
+    current_pool_size = params['pool_size']
+    if conv_output_size < current_pool_size or conv_output_size <= 0 or current_pool_size <= 0:
+        current_pool_size = 1
 
     model = keras.Sequential()
     model.add(layers.Input(shape=input_shape_cnn))
-    model.add(layers.Conv1D(filters=params.get('filters', 64),
+    model.add(layers.Conv1D(filters=params['filters'],
                            kernel_size=current_kernel_size,
-                           activation=params.get('activation', 'relu')))
+                           activation=params['activation']))
 
-    if current_pool_size > 1: # Only add pooling if pool size is valid
+    if current_pool_size > 1:
        model.add(layers.MaxPooling1D(pool_size=current_pool_size))
 
     model.add(layers.Flatten())
-    model.add(layers.Dense(params.get('dense_units', 50), activation=params.get('activation', 'relu')))
-    model.add(layers.Dense(1)) # Output layer
+    model.add(layers.Dense(params['dense_units'], activation=params['activation']))
+    model.add(layers.Dense(1))
 
-    model.compile(optimizer=params.get('optimizer', 'adam'),
-                  loss=params.get('loss', 'mse'))
+    model.compile(optimizer=params['optimizer'],
+                  loss=params['loss'])
 
     model.fit(X_train_cnn, y_train,
-              epochs=params.get('epochs', 50),
-              batch_size=params.get('batch_size', 32),
-              verbose=params.get('verbose', 0))
+              epochs=params['epochs'],
+              batch_size=params['batch_size'],
+              verbose=0)
 
     y_pred = model.predict(X_test_cnn, verbose=params.get('verbose', 0))
 
@@ -101,5 +83,18 @@ param_groups = {
         'epochs': [50, 100],
         'batch_size': [32, 64],
     }
+}
+
+default_params = {
+    'filters': 64,
+    'kernel_size': 2,
+    'activation': 'relu',
+    'pool_size': 2,
+    'dense_units': 50,
+    'optimizer': 'adam',
+    'loss': 'mse',
+    'epochs': 50,
+    'batch_size': 32,
+    'verbose': 0
 }
 

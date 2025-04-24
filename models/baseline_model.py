@@ -23,4 +23,6 @@ def baseline_model(X_train, y_train, X_test, params=None):
 param_groups = {
     'group1': {"best_advisor": "deena"}
 }
-
+default_params = {
+    'best teacher': 'deena'
+}

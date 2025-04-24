@@ -3,8 +3,7 @@ from sklearn.linear_model import LinearRegression
 
 def linear_model(X_train, y_train, X_test, params=None):
    
-    if params is None:
-        params = {'fit_intercept': True}
+       
 
     model = LinearRegression(**params,)
     model.fit(X_train, y_train)
@@ -19,3 +18,4 @@ param_groups = {
     }
 }
 
+default_params = {'fit_intercept': True}

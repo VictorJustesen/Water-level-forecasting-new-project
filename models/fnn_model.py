@@ -5,18 +5,7 @@ from tensorflow.keras import layers
 
 def fnn_model(X_train, y_train, X_test, params=None):
    
-    if params is None:
-        params = {
-            'units_layer1': 64,
-            'activation_layer1': 'relu',
-            'units_layer2': 32,
-            'activation_layer2': 'relu',
-            'optimizer': 'adam',
-            'loss': 'mse',
-            'epochs': 50,
-            'batch_size': 32,
-            'verbose': 0
-        }
+     
 
     # Ensure numpy arrays
     X_train = X_train.values if isinstance(X_train, (pd.DataFrame, pd.Series)) else X_train
@@ -31,23 +20,23 @@ def fnn_model(X_train, y_train, X_test, params=None):
     model = keras.Sequential(
         [
             layers.Input(shape=(n_features,)),
-            layers.Dense(params.get('units_layer1', 64), activation=params.get('activation_layer1', 'relu')),
-            layers.Dropout(params.get('dropout1', 0.0)),  
-            layers.Dense(params.get('units_layer2', 32), activation=params.get('activation_layer2', 'relu')),
-            layers.Dropout(params.get('dropout2', 0.0)),  # Add dropout
-            layers.Dense(1) # Output layer for regression
+            layers.Dense(params['units_layer1'], activation=params['activation_layer1']),
+            layers.Dropout(params['dropout1']),
+            layers.Dense(params['units_layer2'], activation=params['activation_layer2']),
+            layers.Dropout(params['dropout2']),
+            layers.Dense(1)
         ]
     )
 
-    model.compile(optimizer=params.get('optimizer', 'adam'),
-                  loss=params.get('loss', 'mse'))
+    model.compile(optimizer=params['optimizer'],
+                  loss=params['loss'])
 
     model.fit(X_train, y_train,
-              epochs=params.get('epochs', 50),
-              batch_size=params.get('batch_size', 32),
-              verbose=params.get('verbose', 0)) # Set verbose=0 to avoid excessive output during loops
+              epochs=params['epochs'],
+              batch_size=params['batch_size'],
+              verbose=0)
 
-    y_pred = model.predict(X_test, verbose=params.get('verbose', 0))
+    y_pred = model.predict(X_test, verbose=0)
 
     return y_pred.flatten() # Flatten output to match expected shape
 
@@ -71,3 +60,16 @@ param_groups = {
     }
 }
 
+default_params = {
+    'units_layer1': 64,
+    'activation_layer1': 'relu',
+    'units_layer2': 32,
+    'activation_layer2': 'relu',
+    'optimizer': 'adam',
+    'loss': 'mse',
+    'epochs': 50,
+    'batch_size': 32,
+    'verbose': 0,
+    'dropout1': 0.0,
+    'dropout2': 0.0
+}

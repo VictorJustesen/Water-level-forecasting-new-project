@@ -3,11 +3,7 @@ from sklearn.ensemble import RandomForestRegressor
 
 def rf_model(X_train, y_train, X_test, params):
 
-    if params is None:
-        params = {
-            'n_estimators': 50,
-            'max_depth': 10,
-        }
+    
 
     model = RandomForestRegressor(**params, criterion='squared_error')
     model.fit(X_train, y_train)
@@ -26,6 +22,12 @@ param_groups = {
         'max_features': ['sqrt', 'log2', None]  
 }
 }
-
+default_params = {
+    'n_estimators': 50,
+    'max_depth': 10,
+    'min_samples_split': 2,
+    'min_samples_leaf': 1,
+    'max_features': None,
+}
 
 
