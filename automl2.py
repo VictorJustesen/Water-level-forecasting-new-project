@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import importlib
+import random
 from sklearn.preprocessing import StandardScaler
 
 from sklearn.metrics import r2_score,mean_absolute_error, mean_squared_error
@@ -11,6 +12,18 @@ from sklearn.model_selection import ParameterGrid
 import seaborn as sns
 
 import datetime
+
+SEED = 42
+np.random.seed(SEED)
+random.seed(SEED)
+tf.random.set_seed(SEED)
+
+# Try to enable deterministic operations for TensorFlow
+try:
+    tf.config.experimental.enable_op_determinism()
+except:
+    print("Warning: TensorFlow deterministic operations not fully enabled")
+    
 #settings could be done as arguments
 mode="multiple" #single day, range recursive?
 n_splits=15 #number of splits 

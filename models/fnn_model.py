@@ -17,16 +17,24 @@ def fnn_model(X_train, y_train, X_test, params=None):
 
     n_features = X_train.shape[1]
 
-    model = keras.Sequential(
-        [
-            layers.Input(shape=(n_features,)),
-            layers.Dense(params['units_layer1'], activation=params['activation_layer1']),
-            layers.Dropout(params['dropout1']),
-            layers.Dense(params['units_layer2'], activation=params['activation_layer2']),
-            layers.Dropout(params['dropout2']),
-            layers.Dense(1)
-        ]
-    )
+   layers_list = [
+        layers.Input(shape=(n_features,)),
+        layers.Dense(params['units_layer1'], activation=params['activation_layer1']),
+        layers.Dropout(params['dropout1']),
+        layers.Dense(params['units_layer2'], activation=params['activation_layer2']),
+        layers.Dropout(params['dropout2'])
+    ]
+    
+    if params['third_layer']:
+        layers_list.extend([
+            layers.Dense(params['units_layer3'], activation=params['activation_layer3']),
+            layers.Dropout(params['dropout3'])
+        ])
+    
+    # Add output layer
+    layers_list.append(layers.Dense(1))
+    
+    model = keras.Sequential(layers_list)
 
     model.compile(optimizer=params['optimizer'],
                   loss=params['loss'])
@@ -44,15 +52,25 @@ def fnn_model(X_train, y_train, X_test, params=None):
 param_groups = {
     'dropout_rates': {
     'dropout1': [0.0, 0.1, 0.2, 0.3],
-    'dropout2': [0.0, 0.1, 0.2]
+    'dropout2': [0.0, 0.1, 0.2],
+
 },
     'group1_structure': {
         'units_layer1': [32, 64, 128],
         'units_layer2': [16, 32, 64],
+
     },
     'group2_activation': {
          'activation_layer1': ['relu', 'tanh'],
          'activation_layer2': ['relu', 'tanh'],
+
+    },
+    'third_layer': {
+    'dropout3': [0.0, 0.1],
+    'units_layer3': [16, 32, 64],
+    'activation_layer3': ['relu', 'tanh'],
+    'third_layer': [True, False]
+
     },
     'group3_training': {
         'epochs': [50, 100],
@@ -71,5 +89,9 @@ default_params = {
     'batch_size': 32,
     'verbose': 0,
     'dropout1': 0.0,
-    'dropout2': 0.0
+    'dropout2': 0.0,
+    'dropout3': 0.0,
+    'units_layer3': 16,        
+    'activation_layer3': 'relu',
+    'third_layer': False  
 }

@@ -69,7 +69,7 @@ def cnn_model(X_train, y_train, X_test, params=None):
 # Parameter groups for hyperparameter tuning
 param_groups = {
     'group1_cnn_structure': {
-        'filters': [32, 64, 128],
+        'filters': [32, 64, 128, 256],
         'kernel_size': [2, 3, 5], # Will be capped by n_features
          'pool_size': [2], # Will be disabled if invalid for geometry
     },
