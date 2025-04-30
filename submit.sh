@@ -13,7 +13,7 @@
 
 # -- Ask for number of cores (CPU slots) --
 # Adjust based on data loading/preprocessing needs. 8 is a reasonable start.
-#BSUB -n 4
+#BSUB -n 8
 
 # -- Request GPU resources --
 # Request 1 GPU in exclusive process mode.
@@ -33,7 +33,7 @@
 # -- Set walltime limit: hh:mm --
 # Max 24:00 for GPU queues. START SHORT (e.g., 1:00) FOR TESTING!
 # Adjust based on expected runtime for the full job.
-#BSUB -W 10:00
+#BSUB -W 16:00
 
 # -- Specify output and error files (%J expands to Job ID) --
 # We'll create the 'logs' directory below.

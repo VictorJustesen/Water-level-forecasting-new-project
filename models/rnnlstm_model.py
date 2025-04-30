@@ -59,7 +59,8 @@ def rnnlstm_model(X_train, y_train, X_test, params=None):
     model.fit(X_train_seq, y_train_seq,
               epochs=params['epochs'],
               batch_size=params['batch_size'],
-              verbose=0)
+              verbose=0,
+              shuffle=False )
 
     y_pred = model.predict(X_test_seq,verbose=0)
     
@@ -71,7 +72,7 @@ param_groups = {
     'dropout': [0.0, 0.1, 0.2, 0.3],
 },
     'group1_structure': {
-        'units': [32, 50, 100],
+        'units': [32, 50, 100, 200],
     },
    
     'group3_training': {

@@ -5,7 +5,7 @@ from tensorflow.keras import layers
 from .create_sequences import create_sequences
 
 def rnn_model(X_train, y_train, X_test, params=None):
-   
+    #print(f'training with x_train: {X_train},y_train: {y_train}, x_test: {X_test}, params: {params}')
     
 
     # Ensure numpy arrays
@@ -22,7 +22,7 @@ def rnn_model(X_train, y_train, X_test, params=None):
     X_train_seq = X_train.reshape((X_train.shape[0], 1, n_features))
     X_test_seq = X_test.reshape((X_test.shape[0], 1, n_features))
 
-    seq_length = params.get('seq_length', 7)
+    seq_length = params['seq_length']
     
     # Create training sequences
     X_train_seq, y_train_seq = create_sequences(X_train, y_train, seq_length)
@@ -68,7 +68,8 @@ def rnn_model(X_train, y_train, X_test, params=None):
     model.fit(X_train_seq, y_train_seq,
               epochs=params['epochs'],
               batch_size=params['batch_size'],
-              verbose=0)
+              verbose=0,
+              shuffle=False )
 
     y_pred = model.predict(X_test_seq,verbose=0)
 

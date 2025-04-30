@@ -17,7 +17,7 @@ def fnn_model(X_train, y_train, X_test, params=None):
 
     n_features = X_train.shape[1]
 
-   layers_list = [
+    layers_list = [
         layers.Input(shape=(n_features,)),
         layers.Dense(params['units_layer1'], activation=params['activation_layer1']),
         layers.Dropout(params['dropout1']),
@@ -42,7 +42,8 @@ def fnn_model(X_train, y_train, X_test, params=None):
     model.fit(X_train, y_train,
               epochs=params['epochs'],
               batch_size=params['batch_size'],
-              verbose=0)
+              verbose=0,
+              shuffle=False )
 
     y_pred = model.predict(X_test, verbose=0)
 

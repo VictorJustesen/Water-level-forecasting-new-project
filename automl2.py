@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import importlib
 import random
+import tensorflow as tf  
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
 from sklearn.preprocessing import StandardScaler
 
 from sklearn.metrics import r2_score,mean_absolute_error, mean_squared_error
@@ -25,14 +28,20 @@ except:
     print("Warning: TensorFlow deterministic operations not fully enabled")
     
 #settings could be done as arguments
-mode="multiple" #single day, range recursive?
-n_splits=15 #number of splits 
-prediction_length=30# how long ahead in the future we predict 
-gap=45 #gap between splits
+mode="single" #single day, range recursive?
+n_splits=3 #number of splits 
+prediction_length=25# how long ahead in the future we predict 
+gap=30 #gap between splits
 metric="mse"
 
 
 print(datetime.datetime.now())
+print(f"mode {mode}")
+print(f"splits {n_splits}")
+print(f"prediction length {prediction_length}")
+print(f"gap {gap}")
+print(f"metric {metric}")
+
 try:
     df = pd.read_csv("data/masterdata3.csv", index_col='time', parse_dates=True)
     print("sucess")
@@ -44,12 +53,12 @@ except Exception as e:
 #models, you can out comment
 models = [
     'linear_model',
-    'rf_model',
-    'xgb_model',
+    #'rf_model',
+    #'xgb_model',
     'fnn_model',
-    'rnn_model',
-    'cnn_model',
-    'rnnlstm_model',
+    #'rnn_model',
+    #'cnn_model',
+    #'rnnlstm_model',
     'baseline_model',
 ]
 
@@ -177,7 +186,7 @@ def split():
             test_idx = np.array([last_test_day ])
 
         yield train_idx, val_idx, test_idx
-
+all_splits = list(split())
 
 # # Define test size and validation size
 # display_splits = min(5, n_splits)  # Number of splits to display
@@ -231,7 +240,7 @@ for model_name in models:
             current_features = selected_features + [feature]
             errors = []
             
-            for train_idx, val_idx, test_idx in split():
+            for train_idx, val_idx, test_idx in all_splits:
                 train_df = df.iloc[train_idx]
                 val_df = df.iloc[val_idx]
                 
@@ -300,13 +309,14 @@ for model_name in models:
     
     for group_name, group_params in param_groups.items():
         print(f"Optimizing parameter group '{group_name}' for '{model_name}'")
+        print(f"feature {selected_features}")
         param_grid = list(ParameterGrid(group_params))
 
         for params in param_grid:
             current_params = best_params.copy()
             current_params.update(params)
             errors = []
-            for train_idx, val_idx, test_idx in split():
+            for train_idx, val_idx, test_idx in all_splits:
                 train_df = df.iloc[train_idx]
                 val_df = df.iloc[val_idx]
                 y_val = val_df['level'].values
@@ -389,7 +399,7 @@ for model_name in models:
     
     errors = []
     
-    for i, (train_idx, val_idx, test_idx) in enumerate(list(split())):
+    for i, (train_idx, val_idx, test_idx) in enumerate(all_splits):
         train_df = df.iloc[train_idx]
         val_df = df.iloc[val_idx]
         test_df = df.iloc[test_idx]

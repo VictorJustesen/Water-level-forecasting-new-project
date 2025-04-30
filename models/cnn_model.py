@@ -60,7 +60,8 @@ def cnn_model(X_train, y_train, X_test, params=None):
     model.fit(X_train_cnn, y_train,
               epochs=params['epochs'],
               batch_size=params['batch_size'],
-              verbose=0)
+              verbose=0,
+              shuffle=False )
 
     y_pred = model.predict(X_test_cnn, verbose=params.get('verbose', 0))
 
